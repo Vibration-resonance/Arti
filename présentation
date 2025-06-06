@@ -1,0 +1,126 @@
+L'extension Arti AI Detector vise à créer une communauté d'utilisateurs qui identifient et signalent manuellement les contenus (textes, images, audio, vidéo) générés par l'intelligence artificielle. L'interaction principale et la contribution nécessitent que l'utilisateur soit connecté.
+Utilise Supabase, supabase edge functions, google auth et Stripe pour la gestion des abonnements. L'extension est disponible en français et en anglais, avec une interface utilisateur intuitive et des fonctionnalités de gamification pour encourager la participation.
+### 1. Le Popup de l'Extension
+
+Accessible en cliquant sur l'icône de l'extension dans la barre d'outils du navigateur.
+
+*   **Si l'utilisateur N'EST PAS CONNECTÉ avec google auth :**
+    *   **En-tête :** Affiche "Arti AI Detector" et "Invité". Un bouton "Se connecter / S'inscrire" est proéminent. Accès au "Leaderboard" (lecture seule).
+    *   **Corps :** Affiche l'URL et le statut de signalement de la page web visitée (code couleur). Les actions de signalement ou de vote sont désactivées ou masquées. Affiche les 5 derniers signalements de la communauté (lecture seule).
+    *   **Pied de page :** Affiche la version et le slogan.
+*   **Si l'utilisateur EST CONNECTÉ avec google auth:**
+    *   **En-tête :** Affiche "Arti AI Detector" et le pseudo de l'utilisateur ainsi que son image de profil google. Permet de changer la langue (FR/EN). Offre des boutons pour accéder aux modales : "Leaderboard", "Stats utilisateur / Historique perso", et "Paramètres" chacun avec son icone png. Inclut un lien "Nous soutenir" (via Tipeee).
+    *   **Corps :**
+        *   **Informations sur la page actuelle :** Affiche l'URL et le statut de signalement de la page web visitée, avec un code couleur.
+        *   **Actions principales :**
+            *   Si la page n'est pas signalée : un formulaire permet de la signaler (type de contenu, commentaire, option d'anonymat). Les utilisateurs Pro peuvent également, via ce même formulaire, soumettre une demande pour que le domaine entier soit ajouté à la whitelist.
+            *   Si la page est déjà signalée : des boutons permettent de voter ("Approuver", "Réfuter", "Non IA"). Un nombre suffisant de votes "Non IA" (par exemple, 100) peut marquer la page comme "définitivement non-IA".
+        *   **5 derniers signalements :** Liste des 5 dernières pages signalées par la communauté (URL et date).
+    *   **Pied de page :** Affiche la version de l'extension et le slogan "Contribuez à la transparence du web. Un bouton "Passer Premium/Pro" pour les utilisateurs gratuits.
+    *   **Modales (fenêtres contextuelles accessibles aux utilisateurs connectés) :**
+        *   **Leaderboard :** Classement des meilleurs contributeurs (par points, nombres de signalements), avec filtres (période) et pagination Affichages de leurs badges et de leur indice de confiance. Les utilisateurs payants peuvent exporter en CSV.
+        *   **Stats utilisateur / Historique perso :** Statistiques personnelles (nombre de signalements, votes, rang, indice de confiance (Moyenne des votes positifs reçus sur ses signalements par rapport aux votes negatifs), badges obtenus) et historique des 5 derniers signalements/votes. Les utilisateurs payants ont accès à des stats avancées et à l'API.
+        *   **Paramètres :** Gestion du pseudonyme, options d'affichage (bouton flottant, alertes),activation/ désactivation mode anonyme , gestion de l'abonnement, et suppression du compte.
+
+### 2. Le Contenu Injecté dans les Pages Web (Content Scripts)
+
+Ces éléments s'intègrent directement dans les pages que l'utilisateur visite.
+
+*   **Bouton flottant intelligent :**
+    *   Un petit bouton (par défaut en bas à droite, mais déplaçable) change de couleur selon le statut de la page :
+        *   **Rouge :** Page signalée comme IA 
+        *   **Orange plus :** D'autres pages de ce domaine ont été signalées (ce statut prime sur un statut "non signalée" pour la page spécifique).
+        *   **Gris clair :** Page non signalée (et domaine sans autres signalements connus).
+        *   **Blanc :** Domaine en whitelist (non concerné par les signalements).
+    *   Une infobulle indique le statut exact (par ex. "Page signalée IA ", "Page confirmée IA", "Domaine déjà signalé").
+*   **Panneau flottant contextuel :**
+    *   S'ouvre au clic sur le bouton flottant.
+    *   **Si l'utilisateur N'EST PAS CONNECTÉ :** Affiche le statut de la page et les 5 derniers signalements de la communauté (lecture seule). Pas de formulaire de signalement/vote.
+    *   **Si l'utilisateur EST CONNECTÉ :** Son contenu est une version allégée et contextuelle du popup principal, se concentrant sur les informations et actions relatives à la page *actuelle* : voir le statut détaillé de la page, la signaler ou voter dessus, et consulter les 5 derniers signalements de la communauté.
+*   **Alertes visuelles temporaires :**
+    *   De courtes notifications apparaissent au chargement de la page à côté du bouton flottant si la page est déjà confirmée IA (rouge), si le domaine a des signalements (orange clair), ou si elle est confirmée non-IA définitivement (vert). Elles disparaissent après quelques secondes ou au clic.
+
+### 3. Les Fonctions "Edge" (Logique Backend)
+
+Ces fonctions s'exécutent sur les serveurs de Supabase et gèrent la logique métier principale (nécessitent un utilisateur authentifié pour les actions de modification).
+
+*   **createReport :** Enregistre un nouveau signalement d'une page par un utilisateur.
+*   **createVote :** Enregistre le vote d'un utilisateur sur un signalement existant et recalcule le statut du signalement.
+*   **getPageStatus :** Récupère le statut actuel d'une URL, les infos sur le domaine, et les 5 derniers signalements (accessible à tous).
+*   **getRecentReports :** Récupère une liste plus étendue des signalements récents.
+*   **getTopUsers :** Calcule et renvoie les données du leaderboard (accessible à tous en lecture).
+*   **calcAndAwardBadge :** Calcule les points des utilisateurs et leur attribue des badges.
+*   **createCheckoutSession : (Nécessaire pour les abonnements) Crée une session de paiement Stripe lorsqu'un utilisateur choisit de passer à un plan Premium ou Pro, et retourne l'URL de redirection vers la page de paiement Stripe.
+*   **cancelSubscription : (Nécessaire pour la gestion des abonnements) Gère la demande d'annulation d'un abonnement payant initiée par l'utilisateur, interagit avec Stripe et met à jour le statut de l'abonnement dans la base de données.
+*   **getWhitelistDomains : (Nécessaire pour l'optimisation) Récupère la liste des domaines qui sont sur la liste blanche centrale (gérée par les administrateurs), permettant à l'extension de ne pas injecter son interface sur ces sites.
+*   **stripeWebhook :** Gère les communications avec Stripe pour les abonnements.
+
+### 4. Gamification et Badges (pour utilisateurs connectés)
+
+Un système de points et de badges encourage la participation.
+
+*   **Système de Points :**
+    *   Création d'un signalement : **+10 points**.
+    *   Vote déposé : **+5 points**.
+    *   Votes positifs reçus : **+5 points**.
+*   **Badges et Paliers :**
+    *   **Badge "Premier Signalement" :**
+        *   **Critère :** Effectuer son premier signalement.
+        *   **Points requis (indirectement) :** L'action elle-même, qui rapporte 10 points.
+Badges : 
+### Signalements effectués
+- 50 signalements: Fond couleur bronze - "Observateur Débutant"
+- 100 signalements: Fond couleur argent - "Observateur Actif"
+- 250 signalements: Fond couleur or - "Observateur Expert" 
+- 500 signalements: Fond couleur diamant - "Observateur Élite"
+- 1000 signalements:Fond couleur platine  - "Observateur Légendaire"
+
+###Votes effectués
+50 votes : Fond couleur bronze – "Votant Débutant"
+100 votes : Fond couleur argent – "Votant Régulier"
+250 votes : Fond couleur or – "Votant Expert"
+500 votes : Fond couleur diamant– "Votant Élite"
+1000 votes : Fond couleur platine – "Votant Légendaire"
+
+###Votes reçus
+50 votes : Fond couleur bronze– "Contenu Populaire"
+100 votes : Fond couleur argent – "Contenu Reconnu"
+250 votes : Fond couleur or – "Contenu Influent"
+500 votes : Fond couleur diamant – "Contenu Notable"
+1000 votes : Fond couleur platine – "Contenu Légendaire"
+
+###Indice de confiance
+60 % : Fond couleur bronze – "Fiabilité Bronze"
+75 % : Fond couleur argent – "Fiabilité Argent"
+90 % : Fond couleur or – "Fiabilité Or"
+95 % : Fond couleur platine – "Fiabilité Platine"
+99 % : Fond couleur diamant – "Fiabilité Diamant"
+
+Tous les badges
+Fond multicolore ou effet spécial – "Maître Détecteur"
+### 5. Fonctionnalités Freemium
+
+** chaque Badges à sa propre icone png et la couleur de fond de l'icone change en fonction du palier atteint.**
+
+Le service propose différents niveaux d'accès, la connexion étant requise pour la plupart des interactions.
+
+*   **Non connecté :**
+    *   Consultation du statut des pages.
+    *   Consultation du Leaderboard.
+*   **Gratuit (Free - utilisateur connecté) :**
+    *   Signalements manuels illimités.
+    *   Vote et consultation des statuts.
+    *   Accès au Leaderboard et obtention des badges de base.
+*   **Premium (Abonnement payant) :**
+    *   Toutes les fonctionnalités gratuites.
+    *   Statistiques avancées (tendances, export CSV des rapports).
+    *   Filtres avancés sur le leaderboard.
+    *   Personnalisation de l'interface (thèmes).
+    *   Accès API pour récupérer la liste des sites signalés.
+    *   Support prioritaire.
+*   **Pro (Abonnement payant professionnel) :**
+    *   Toutes les fonctionnalités Premium.
+    *   Outils pour les créateurs (certification de contenu humain).
+    *   Accès API étendu avec plus de quotas.
+    *   Rapports d'analyse plus poussés (par domaine, catégorie).
+    *   Possibilité de demander l'ajout de domaines à la whitelist directement depuis l'extension (via le formulaire de signalement).
