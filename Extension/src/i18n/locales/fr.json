@@ -1,0 +1,414 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "close": "Fermer",
+    "yes": "Oui",
+    "no": "Non",
+    "optional": "optionnel"
+  },
+  "auth": {
+    "signIn": "Se connecter / S'inscrire",
+    "signOut": "Se déconnecter",
+    "guest": "Invité",
+    "welcomeBack": "Bon retour",
+    "signInWithGoogle": "Se connecter avec Google"
+  },  "popup": {
+    "title": "Arti AI Detector",
+    "slogan": "Contribuez à la transparence du web",
+    "version": "Version",
+    "supportUs": "Nous soutenir",
+    "upgradeToPremium": "Passer Premium/Pro",
+    "currentPage": "Page actuelle",
+    "pageStatus": "Statut de la page",
+    "reportPage": "Signaler la page",
+    "reportPageDescription": "Aidez la communauté en signalant le contenu généré par IA sur cette page.",
+    "votePage": "Voter sur la page",
+    "recentReports": "Signalements récents",
+    "noReports": "Aucun signalement pour le moment",
+    "noReportsDescription": "Commencez par signaler du contenu suspect !",
+    "noStatus": "Impossible de charger le statut de la page",
+    "reportsCount": "{count} signalement(s)",
+    "domainReports": "{count} signalement(s) sur ce domaine"
+  },  "status": {
+    "ai": "Contenu IA",
+    "aiDescription": "La communauté a confirmé que cette page contient du contenu généré par IA",
+    "not_ai": "Contenu humain",
+    "not_aiDescription": "La communauté a confirmé que cette page contient du contenu créé par des humains",
+    "pending": "En cours d'examen",
+    "pendingDescription": "La communauté examine actuellement cette page",
+    "unknown": "Non signalé",
+    "unknownDescription": "Cette page n'a pas encore été signalée",
+    "unknownWithReports": "Non signalée mais le domaine a des signalements",
+    "whitelisted": "Domaine de confiance",
+    "whitelistedDescription": "Ce domaine figure sur la liste des sites de confiance",
+    "domainReported": "Le domaine a des signalements"
+  },
+  "contentTypes": {
+    "text": "Texte",
+    "image": "Image",
+    "audio": "Audio",
+    "video": "Vidéo"
+  },  "report": {
+    "type": "Type de signalement",
+    "selectType": "Sélectionner le type de signalement...",
+    "contentType": "Type de contenu",
+    "evidenceUrl": "URL de preuve",
+    "evidenceUrlPlaceholder": "Lien vers une preuve (optionnel)",
+    "description": "Description",
+    "descriptionPlaceholder": "Décrivez pourquoi vous pensez que c'est du contenu IA...",
+    "comment": "Commentaire",
+    "anonymous": "Signalement anonyme",
+    "submit": "Envoyer le signalement",
+    "submitting": "Envoi en cours...",
+    "submitSuccess": "Signalement envoyé avec succès",
+    "submitError": "Erreur lors de l'envoi du signalement",
+    "infoTitle": "Comment ça marche",
+    "infoText": "Votre signalement sera examiné par la communauté. D'autres utilisateurs peuvent voter pour approuver ou réfuter vos conclusions."
+  },
+  "reportType": {
+    "ai_content": "Contenu généré par IA",
+    "suspicious_content": "Contenu suspect",
+    "misleading_content": "Contenu trompeur",
+    "spam_content": "Contenu spam",
+    "other": "Autre"
+  },  "vote": {
+    "approve": "Approuver",
+    "refute": "Réfuter",
+    "notAi": "Pas IA",
+    "description": "Êtes-vous d'accord avec ce signalement ? Votez pour aider la communauté.",
+    "approveHelp": "Ce contenu est effectivement généré par IA",
+    "refuteHelp": "Ce contenu n'est pas généré par IA",
+    "notAiHelp": "Ce contenu semble être créé par des humains",
+    "submitting": "Envoi du vote...",
+    "voteSuccess": "Vote envoyé avec succès",
+    "voteError": "Erreur lors de l'envoi du vote"
+  },  "leaderboard": {
+    "title": "Classement",
+    "rank": "Rang",
+    "user": "Utilisateur",
+    "points": "Points",
+    "reports": "Signalements",
+    "votes": "Votes",
+    "trustIndex": "Indice de confiance",
+    "badges": "Badges",
+    "period": "Période",
+    "allTime": "Tout temps",
+    "thisMonth": "Ce mois",
+    "thisWeek": "Cette semaine",
+    "exportCsv": "Exporter CSV",
+    "noData": "Aucune donnée de classement disponible"
+  },  "stats": {
+    "title": "Mes statistiques",
+    "personalStats": "Statistiques personnelles",
+    "totalReports": "Total signalements",
+    "totalVotes": "Total votes",
+    "totalPoints": "Total points",
+    "accuracy": "Précision",
+    "votesReceived": "Votes reçus",
+    "currentRank": "Rang actuel",
+    "trustIndex": "Indice de confiance",
+    "badgesEarned": "Badges obtenus",
+    "recentActivity": "Activité récente",
+    "history": "Historique",
+    "breakdown": "Répartition détaillée",
+    "reportsByType": "Signalements par type",
+    "voteAccuracy": "Précision des votes",
+    "reportsThisWeek": "Signalements cette semaine",
+    "votesThisWeek": "Votes cette semaine",
+    "pointsThisWeek": "Points cette semaine",
+    "badges": "Badges obtenus",
+    "progress": "Progression",
+    "nextLevel": "Niveau suivant",
+    "pointsToNext": "points pour le niveau suivant"
+  },  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "notifications": "Notifications",
+    "privacy": "Confidentialité",
+    "appearance": "Apparence",
+    "advanced": "Avancé",
+    "showFloatingButton": "Afficher le bouton flottant",
+    "showFloatingButtonDescription": "Afficher le bouton flottant sur les pages web",
+    "autoDetection": "Détection automatique",
+    "autoDetectionDescription": "Vérifier automatiquement les pages pour le contenu IA",
+    "showNotifications": "Afficher les notifications",
+    "showNotificationsDescription": "Afficher les popups de notification",
+    "soundNotifications": "Notifications sonores",
+    "soundNotificationsDescription": "Jouer un son pour les notifications",
+    "anonymousReporting": "Signalement anonyme",
+    "anonymousReportingDescription": "Soumettre des signalements sans révéler votre identité",
+    "shareStatistics": "Partager les statistiques",
+    "shareStatisticsDescription": "Aider à améliorer le service en partageant les données d'utilisation",
+    "floatingButtonPosition": "Position du bouton flottant",
+    "bottomRight": "En bas à droite",
+    "bottomLeft": "En bas à gauche",
+    "topRight": "En haut à droite",
+    "topLeft": "En haut à gauche",
+    "buttonSize": "Taille du bouton",
+    "whitelistDomains": "Domaines en liste blanche",
+    "whitelistDomainsDescription": "Domaines qui ne seront pas vérifiés pour le contenu IA",
+    "addDomain": "Ajouter un domaine",
+    "apiEndpoint": "Point de terminaison API",
+    "apiEndpointDescription": "Point de terminaison API personnalisé (utilisateurs avancés uniquement)",
+    "debugMode": "Mode débogage",
+    "debugModeDescription": "Activer la journalisation détaillée pour le dépannage",
+    "reset": "Rétablir les paramètres par défaut",
+    "resetConfirm": "Êtes-vous sûr de vouloir rétablir tous les paramètres aux valeurs par défaut ?",
+    "anonymousMode": "Mode anonyme",
+    "theme": "Thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "auto": "Auto",
+    "account": "Compte",
+    "subscription": "Abonnement",
+    "manageSubscription": "Gérer l'abonnement",
+    "deleteAccount": "Supprimer le compte"
+  },  "badges": {
+    "firstReport": "Premier signalement",
+    "first_report": "Premier signalement",
+    "accuracy_master": "Maître de la précision",
+    "speed_demon": "Démon de la vitesse",
+    "community_hero": "Héros de la communauté",
+    "observerBeginner": "Observateur débutant",
+    "observerActive": "Observateur actif",
+    "observerExpert": "Observateur expert",
+    "observerElite": "Observateur élite",
+    "observerLegendary": "Observateur légendaire",
+    "voterBeginner": "Votant débutant",
+    "voterRegular": "Votant régulier",
+    "voterExpert": "Votant expert",
+    "voterElite": "Votant élite",
+    "voterLegendary": "Votant légendaire",
+    "contentPopular": "Contenu populaire",
+    "contentRecognized": "Contenu reconnu",
+    "contentInfluential": "Contenu influent",
+    "contentNotable": "Contenu notable",
+    "contentLegendary": "Contenu légendaire",
+    "reliabilityBronze": "Fiabilité bronze",
+    "reliabilitySilver": "Fiabilité argent",
+    "reliabilityGold": "Fiabilité or",
+    "reliabilityPlatinum": "Fiabilité platine",
+    "reliabilityDiamond": "Fiabilité diamant",
+    "masterDetector": "Maître détecteur"
+  },  "subscription": {
+    "free": "Gratuit",
+    "premium": "Premium",
+    "pro": "Pro",
+    "upgrade": "Améliorer",
+    "upgradeToPremium": "Passer à Premium",
+    "upgradeToPro": "Passer à Pro",
+    "currentPlan": "Plan actuel",
+    "choosePlan": "Choisir un plan",
+    "current": "Actuel",
+    "popular": "Populaire",
+    "month": "mois",
+    "freePrice": "Gratuit",
+    "processing": "Traitement...",
+    "downgrade": "Rétrograder",
+    "freeFeature1": "5 signalements par jour",
+    "freeFeature2": "Vote sur les signalements",
+    "freeFeature3": "Badges de base",
+    "premiumFeature1": "Signalements illimités",
+    "premiumFeature2": "Statistiques avancées",
+    "premiumFeature3": "Export CSV",
+    "premiumFeature4": "Filtres avancés",
+    "proFeature1": "Tout Premium inclus",
+    "proFeature2": "Accès API",
+    "proFeature3": "Support prioritaire",
+    "proFeature4": "Outils créateur",
+    "proFeature5": "API étendue",
+    "faqTitle": "Questions fréquentes",
+    "faq1Question": "Puis-je annuler à tout moment ?",
+    "faq1Answer": "Oui, vous pouvez annuler votre abonnement à tout moment. Vous conserverez l'accès jusqu'à la fin de votre période de facturation.",
+    "faq2Question": "Que se passe-t-il si je rétrograde ?",
+    "faq2Answer": "Vous conserverez l'accès aux fonctionnalités premium jusqu'à la fin de votre période de facturation actuelle.",
+    "learnMore": "En savoir plus",
+    "features": {
+      "unlimitedReports": "Signalements illimités",
+      "voting": "Vote",
+      "basicBadges": "Badges de base",
+      "advancedStats": "Statistiques avancées",
+      "csvExport": "Export CSV",
+      "advancedFilters": "Filtres avancés",
+      "customThemes": "Thèmes personnalisés",
+      "apiAccess": "Accès API",
+      "prioritySupport": "Support prioritaire",
+      "creatorTools": "Outils créateur",
+      "extendedApi": "API étendue",
+      "advancedReports": "Rapports avancés",
+      "whitelistRequests": "Demandes whitelist"
+    }
+  },
+  "role": {
+    "free": "Gratuit",
+    "premium": "Premium",
+    "pro": "Pro",
+    "freeBenefits": "5 signalements/jour, vote, badges de base",
+    "premiumBenefits": "Illimité, stats avancées, export CSV",
+    "proBenefits": "API, support prioritaire, outils créateur"
+  },
+  "footer": {
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "help": "Aide",
+    "supportUs": "Soutenez-nous",
+    "donate": "Faire un don",
+    "upgradeToProTitle": "Passez à Pro",
+    "upgradeToProDescription": "Débloquez l'API et les outils créateur"
+  },
+  "time": {
+    "minutesAgo": "il y a {count} minute(s)",
+    "hoursAgo": "il y a {count} heure(s)",
+    "daysAgo": "il y a {count} jour(s)"
+  },
+  "floating": {
+    "tooltip": {
+      "aiDetected": "Contenu IA détecté",
+      "domainReported": "Le domaine a des signalements",
+      "notReported": "Non signalé",
+      "whitelisted": "Domaine de confiance"
+    }
+  },  "notifications": {
+    "aiConfirmed": "Cette page contient du contenu IA confirmé",
+    "domainHasReports": "Ce domaine a des signalements de contenu IA",
+    "humanConfirmed": "Cette page est confirmée comme contenu humain"
+  },
+  "about": {
+    "title": "Arti AI Detector",
+    "version": "Version {version}",
+    "description": "Une extension communautaire pour détecter le contenu généré par IA sur le web. Aidez à construire un internet plus transparent en contribuant à notre connaissance collective.",
+    "features": {
+      "detection": {
+        "title": "Détection IA",
+        "description": "Algorithmes avancés pour identifier le texte et contenu généré par IA sur le web"
+      },
+      "community": {
+        "title": "Communautaire",
+        "description": "Plateforme collaborative où les utilisateurs votent et vérifient l'authenticité du contenu"
+      },
+      "realtime": {
+        "title": "Temps Réel",
+        "description": "Notifications instantanées et mises à jour en direct pendant votre navigation"
+      },
+      "privacy": {
+        "title": "Confidentialité",
+        "description": "Vos données de navigation restent privées. Nous analysons seulement le contenu signalé"
+      },
+      "leaderboard": {
+        "title": "Classement",
+        "description": "Compétition avec d'autres contributeurs et gagnez des badges pour des signalements précis"
+      },
+      "multilingual": {
+        "title": "Multilingue",
+        "description": "Support pour plusieurs langues et détection de contenu international"
+      }
+    },
+    "howItWorks": {
+      "title": "Comment ça Marche",
+      "steps": {
+        "browse": {
+          "title": "Naviguez sur le Web",
+          "description": "Utilisez internet normalement pendant que l'extension fonctionne en arrière-plan"
+        },
+        "detect": {
+          "title": "Détection IA",
+          "description": "Nos algorithmes analysent les pages signalées pour du contenu potentiellement généré par IA"
+        },
+        "vote": {
+          "title": "Vote Communautaire",
+          "description": "Les utilisateurs votent sur l'authenticité du contenu pour construire une intelligence collective"
+        },
+        "learn": {
+          "title": "Apprentissage Continu",
+          "description": "Le système améliore sa précision grâce aux retours communautaires et l'apprentissage automatique"
+        }
+      }
+    },
+    "team": {
+      "title": "Équipe & Crédits",
+      "roles": {
+        "founder": "Fondateur & PDG",
+        "developer": "Développeur Principal",
+        "designer": "Designer UI/UX"
+      }
+    },
+    "links": {
+      "title": "Liens Utiles",
+      "items": {
+        "website": "Site Web Officiel",
+        "github": "Dépôt GitHub",
+        "documentation": "Documentation",
+        "blog": "Blog & Mises à Jour"
+      }
+    },
+    "support": {
+      "title": "Support & Aide",
+      "options": {
+        "faq": {
+          "title": "Questions Fréquentes",
+          "description": "Trouvez des réponses aux questions courantes et conseils de dépannage",
+          "action": "Voir FAQ"
+        },
+        "contact": {
+          "title": "Contacter le Support",
+          "description": "Contactez notre équipe de support pour obtenir de l'aide",
+          "action": "Envoyer Email"
+        },
+        "community": {
+          "title": "Discord Communautaire",
+          "description": "Rejoignez notre serveur Discord pour vous connecter avec d'autres utilisateurs",
+          "action": "Rejoindre Discord"
+        }
+      }
+    },
+    "legal": {
+      "title": "Confidentialité & Légal",
+      "readMore": "Lire Plus",
+      "items": {
+        "privacy": {
+          "title": "Politique de Confidentialité",
+          "description": "Apprenez comment nous protégeons vos données et respectons votre vie privée"
+        },
+        "terms": {
+          "title": "Conditions d'Utilisation",
+          "description": "Lisez nos termes et conditions pour utiliser l'extension"
+        },
+        "licenses": {
+          "title": "Licences Open Source",
+          "description": "Consultez les licences des bibliothèques open source que nous utilisons"
+        }
+      }
+    },
+    "changelog": {
+      "title": "Historique des Versions",
+      "latest": "Dernière",
+      "versions": {
+        "1.0.0": {
+          "initialRelease": "Version publique initiale avec les fonctionnalités de détection IA principales",
+          "communityVoting": "Système de vote et vérification communautaire",
+          "realTimeDetection": "Analyse de contenu en temps réel et notifications"
+        },
+        "0.9.0": {
+          "betaLaunch": "Lancement de la bêta publique avec tests utilisateurs étendus",
+          "leaderboardSystem": "Implémentation du système de classement et badges",
+          "multiLanguage": "Support multi-langues et internationalisation"
+        },
+        "0.8.0": {
+          "alphaRelease": "Version alpha pour les premiers testeurs et retours",
+          "basicDetection": "Algorithmes de base pour la détection de contenu IA",
+          "userAccounts": "Système de comptes utilisateur et authentification"
+        }
+      }
+    },
+    "footer": {
+      "copyright": "© {year} Arti AI Detector. Tous droits réservés.",
+      "buildInfo": "Build: {build}"
+    }
+  }
+}

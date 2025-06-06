@@ -1,0 +1,214 @@
+import { supabase } from './supabase';
+import type { User } from '../types';
+
+export class AuthService {
+  /**
+   * Connexion avec Google OAuth en utilisant chrome.identity
+   */
+  async signInWithGoogle(): Promise<{ success: boolean; user?: User; error?: string }> {
+    try {
+      // Utiliser chrome.identity pour obtenir le token d'authentification Google
+      const authResult = await new Promise<{token: string, user: any}>((resolve, reject) => {
+        const manifest = chrome.runtime.getManifest();
+        const clientId = manifest.oauth2?.client_id;
+        if (!clientId) {
+          reject(new Error("OAuth client ID not found in manifest.json"));
+          return;
+        }
+        
+        const authUrl = 
+          'https://accounts.google.com/o/oauth2/auth?' +
+          'client_id=' + encodeURIComponent(clientId) +
+          '&response_type=token' +
+          '&redirect_uri=' + encodeURIComponent(chrome.identity.getRedirectURL()) +
+          '&scope=' + encodeURIComponent('openid email profile');
+          
+        chrome.identity.launchWebAuthFlow({
+          url: authUrl,
+          interactive: true
+        }, (responseUrl) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error(chrome.runtime.lastError.message));
+            return;
+          }
+          if (!responseUrl) {
+            reject(new Error('No response URL'));
+            return;
+          }
+          
+          // Extraire le token et les informations de l'URL de réponse
+          const url = new URL(responseUrl);
+          const params = new URLSearchParams(url.hash.substring(1));
+          const token = params.get('access_token');
+          
+          if (!token) {
+            reject(new Error('No access token found in response'));
+            return;
+          }
+          
+          // Obtenir les informations de l'utilisateur avec le token
+          fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+            headers: { 'Authorization': 'Bearer ' + token }
+          })
+          .then(response => response.json())
+          .then(user => {
+            resolve({ token, user });
+          })
+          .catch(error => {
+            reject(error);
+          });
+        });
+      });
+
+      // Connecter l'utilisateur à Supabase avec le token Google
+      const { data, error } = await supabase.auth.signInWithIdToken({
+        provider: 'google',
+        token: authResult.token,
+        nonce: Math.random().toString(36).substring(2, 15),
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      // Attendre que la session soit établie
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (session?.user) {
+        // Créer ou mettre à jour l'utilisateur dans notre base
+        const user = await this.createOrUpdateUser(session.user);
+        return { success: true, user };
+      }
+
+      return { success: false, error: 'No session established' };
+    } catch (error) {
+      console.error('Google sign-in error:', error);
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Authentication failed' 
+      };
+    }
+  }
+
+  /**
+   * Déconnexion
+   */
+  async signOut(): Promise<{ success: boolean; error?: string }> {
+    try {
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        throw error;
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error('Sign-out error:', error);
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Sign-out failed' 
+      };
+    }
+  }
+
+  /**
+   * Obtenir l'utilisateur connecté
+   */
+  async getCurrentUser(): Promise<User | null> {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session?.user) {
+        return null;
+      }
+
+      // Récupérer les données utilisateur de notre base
+      const { data: userData, error } = await supabase
+        .from('users')
+        .select(`
+          *,
+          user_badges:user_badges(
+            badge:badges(*)
+          )
+        `)
+        .eq('google_id', session.user.id)
+        .single();
+
+      if (error || !userData) {
+        // Si l'utilisateur n'existe pas dans notre base, le créer
+        return await this.createOrUpdateUser(session.user);
+      }
+
+      return userData as User;
+    } catch (error) {
+      console.error('Get current user error:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Écouter les changements d'authentification
+   */
+  onAuthStateChange(callback: (user: User | null) => void) {
+    return supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth state changed:', event, session?.user?.id);
+      
+      if (session?.user) {
+        const user = await this.getCurrentUser();
+        callback(user);
+      } else {
+        callback(null);
+      }
+    });
+  }
+
+  /**
+   * Créer ou mettre à jour un utilisateur dans notre base
+   */
+  private async createOrUpdateUser(authUser: any): Promise<User> {
+    const userData = {
+      google_id: authUser.id,
+      email: authUser.email || '',
+      pseudo: authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Utilisateur',
+      avatar_url: authUser.user_metadata?.picture || authUser.user_metadata?.avatar_url || '',
+      role: 'Free' as const,
+      points_totaux: 0,
+      indice_confiance: 0
+    };
+
+    // Essayer d'insérer ou mettre à jour
+    const { data, error } = await supabase
+      .from('users')
+      .upsert(userData, { 
+        onConflict: 'google_id',
+        ignoreDuplicates: false 
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error creating/updating user:', error);
+      throw error;
+    }
+
+    return data as User;
+  }
+
+  /**
+   * Vérifier si l'utilisateur est Premium/Pro
+   */
+  async isUserPremium(): Promise<boolean> {
+    const user = await this.getCurrentUser();
+    return user?.role === 'Premium' || user?.role === 'Pro';
+  }
+
+  /**
+   * Vérifier si l'utilisateur est Pro
+   */
+  async isUserPro(): Promise<boolean> {
+    const user = await this.getCurrentUser();
+    return user?.role === 'Pro';
+  }
+}
+
+export const authService = new AuthService();

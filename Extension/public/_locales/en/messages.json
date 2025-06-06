@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "Arti AI Detector",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Detect and report AI-generated content collaboratively",
+    "description": "Extension description"
+  }
+}

@@ -1,0 +1,420 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "saving": "Saving...",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "optional"
+  },
+  "auth": {
+    "signIn": "Sign In / Sign Up",
+    "signOut": "Sign Out",
+    "guest": "Guest",
+    "welcomeBack": "Welcome back",
+    "signInWithGoogle": "Sign in with Google"
+  },
+  "popup": {
+    "title": "Arti AI Detector",
+    "slogan": "Contribute to web transparency",
+    "version": "Version",
+    "supportUs": "Support Us",
+    "upgradeToPremium": "Upgrade to Premium/Pro",
+    "currentPage": "Current Page",
+    "pageStatus": "Page Status",
+    "reportPage": "Report Page",
+    "reportPageDescription": "Help the community by reporting AI-generated content on this page.",
+    "votePage": "Vote on Page",
+    "recentReports": "Recent Reports",
+    "noReports": "No reports yet",
+    "noReportsDescription": "Start by reporting suspicious content!",
+    "noStatus": "Unable to load page status",
+    "reportsCount": "{count} report(s)",
+    "domainReports": "{count} report(s) on this domain"
+  },
+  "status": {
+    "ai": "AI Content",
+    "aiDescription": "Community confirmed this page contains AI-generated content",
+    "not_ai": "Human Content",
+    "not_aiDescription": "Community confirmed this page contains human-created content",
+    "pending": "Under Review",
+    "pendingDescription": "Community is currently reviewing this page",
+    "unknown": "Not Reported",
+    "unknownDescription": "This page hasn't been reported yet",
+    "unknownWithReports": "Not reported but domain has reports",
+    "whitelisted": "Trusted Domain",
+    "whitelistedDescription": "This domain is on the trusted list",
+    "domainReported": "Domain Has Reports"
+  },
+  "contentTypes": {
+    "text": "Text",
+    "image": "Image",
+    "audio": "Audio",
+    "video": "Video"
+  },
+  "report": {
+    "type": "Report Type",
+    "selectType": "Select report type...",
+    "contentType": "Content Type",
+    "evidenceUrl": "Evidence URL",
+    "evidenceUrlPlaceholder": "Link to evidence (optional)",
+    "description": "Description",
+    "descriptionPlaceholder": "Describe why you think this is AI content...",
+    "comment": "Comment",
+    "anonymous": "Anonymous Report",
+    "submit": "Submit Report",
+    "submitting": "Submitting...",
+    "submitSuccess": "Report submitted successfully",
+    "submitError": "Error submitting report",
+    "infoTitle": "How it works",
+    "infoText": "Your report will be reviewed by the community. Other users can vote to approve or refute your findings."
+  },
+  "reportType": {
+    "ai_content": "AI-generated content",
+    "suspicious_content": "Suspicious content",
+    "misleading_content": "Misleading content",
+    "spam_content": "Spam content",
+    "other": "Other"
+  },
+  "vote": {
+    "approve": "Approve",
+    "refute": "Refute",
+    "notAi": "Not AI",
+    "description": "Do you agree with this report? Cast your vote to help the community.",
+    "approveHelp": "This content is indeed AI-generated",
+    "refuteHelp": "This content is not AI-generated",
+    "notAiHelp": "This content appears to be human-created",
+    "submitting": "Submitting vote...",
+    "voteSuccess": "Vote submitted successfully",
+    "voteError": "Error submitting vote"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "rank": "Rank",
+    "user": "User",
+    "points": "Points",
+    "reports": "Reports",
+    "votes": "Votes",
+    "trustIndex": "Trust Index",
+    "badges": "Badges",
+    "period": "Period",
+    "allTime": "All Time",
+    "thisMonth": "This Month",
+    "thisWeek": "This Week",
+    "exportCsv": "Export CSV",
+    "noData": "No leaderboard data available"
+  },
+  "stats": {
+    "title": "My Statistics",
+    "personalStats": "Personal Statistics",
+    "totalReports": "Total Reports",
+    "totalVotes": "Total Votes",
+    "totalPoints": "Total Points",
+    "accuracy": "Accuracy",
+    "votesReceived": "Votes Received",
+    "currentRank": "Current Rank",
+    "trustIndex": "Trust Index",
+    "badgesEarned": "Badges Earned",
+    "recentActivity": "Recent Activity",
+    "history": "History",
+    "breakdown": "Detailed Breakdown",
+    "reportsByType": "Reports by Type",
+    "voteAccuracy": "Vote Accuracy",
+    "reportsThisWeek": "Reports this week",
+    "votesThisWeek": "Votes this week",
+    "pointsThisWeek": "Points this week",
+    "badges": "Earned Badges",
+    "progress": "Progress",
+    "nextLevel": "Next Level",
+    "pointsToNext": "points to next level"
+  },  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "appearance": "Appearance",
+    "advanced": "Advanced",
+    "showFloatingButton": "Show Floating Button",
+    "showFloatingButtonDescription": "Display the floating button on web pages",
+    "autoDetection": "Auto Detection",
+    "autoDetectionDescription": "Automatically check pages for AI content",
+    "showNotifications": "Show Notifications",
+    "showNotificationsDescription": "Display notification popups",
+    "soundNotifications": "Sound Notifications",
+    "soundNotificationsDescription": "Play sound for notifications",
+    "anonymousReporting": "Anonymous Reporting",
+    "anonymousReportingDescription": "Submit reports without revealing your identity",
+    "shareStatistics": "Share Statistics",
+    "shareStatisticsDescription": "Help improve the service by sharing usage data",
+    "floatingButtonPosition": "Floating Button Position",
+    "bottomRight": "Bottom Right",
+    "bottomLeft": "Bottom Left",
+    "topRight": "Top Right",
+    "topLeft": "Top Left",
+    "buttonSize": "Button Size",
+    "whitelistDomains": "Whitelisted Domains",
+    "whitelistDomainsDescription": "Domains that will not be checked for AI content",
+    "addDomain": "Add Domain",
+    "apiEndpoint": "API Endpoint",
+    "apiEndpointDescription": "Custom API endpoint (advanced users only)",
+    "debugMode": "Debug Mode",
+    "debugModeDescription": "Enable detailed logging for troubleshooting",
+    "reset": "Reset to Defaults",
+    "resetConfirm": "Are you sure you want to reset all settings to default values?",
+    "anonymousMode": "Anonymous Mode",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "auto": "Auto",
+    "account": "Account",
+    "subscription": "Subscription",
+    "manageSubscription": "Manage Subscription",
+    "deleteAccount": "Delete Account"
+  },  "badges": {
+    "firstReport": "First Report",
+    "first_report": "First Report",
+    "accuracy_master": "Accuracy Master",
+    "speed_demon": "Speed Demon",
+    "community_hero": "Community Hero",
+    "observerBeginner": "Observer Beginner",
+    "observerActive": "Observer Active",
+    "observerExpert": "Observer Expert",
+    "observerElite": "Observer Elite",
+    "observerLegendary": "Observer Legendary",
+    "voterBeginner": "Voter Beginner",
+    "voterRegular": "Voter Regular",
+    "voterExpert": "Voter Expert",
+    "voterElite": "Voter Elite",
+    "voterLegendary": "Voter Legendary",
+    "contentPopular": "Popular Content",
+    "contentRecognized": "Recognized Content",
+    "contentInfluential": "Influential Content",
+    "contentNotable": "Notable Content",
+    "contentLegendary": "Legendary Content",
+    "reliabilityBronze": "Bronze Reliability",
+    "reliabilitySilver": "Silver Reliability",
+    "reliabilityGold": "Gold Reliability",
+    "reliabilityPlatinum": "Platinum Reliability",
+    "reliabilityDiamond": "Diamond Reliability",
+    "masterDetector": "Master Detector"
+  },  "subscription": {
+    "free": "Free",
+    "premium": "Premium",
+    "pro": "Pro",
+    "upgrade": "Upgrade",
+    "upgradeToPremium": "Upgrade to Premium",
+    "upgradeToPro": "Upgrade to Pro",
+    "currentPlan": "Current Plan",
+    "choosePlan": "Choose a Plan",
+    "current": "Current",
+    "popular": "Popular",
+    "month": "month",
+    "freePrice": "Free",
+    "processing": "Processing...",
+    "downgrade": "Downgrade",
+    "freeFeature1": "5 reports per day",
+    "freeFeature2": "Vote on reports",
+    "freeFeature3": "Basic badges",
+    "premiumFeature1": "Unlimited reports",
+    "premiumFeature2": "Advanced statistics",
+    "premiumFeature3": "CSV export",
+    "premiumFeature4": "Advanced filters",
+    "proFeature1": "Everything in Premium",
+    "proFeature2": "API access",
+    "proFeature3": "Priority support",
+    "proFeature4": "Creator tools",
+    "proFeature5": "Extended API",
+    "faqTitle": "Frequently Asked Questions",
+    "faq1Question": "Can I cancel anytime?",
+    "faq1Answer": "Yes, you can cancel your subscription at any time. You'll retain access until the end of your billing period.",
+    "faq2Question": "What happens if I downgrade?",
+    "faq2Answer": "You'll retain access to premium features until the end of your current billing period.",
+    "learnMore": "Learn More",
+    "features": {
+      "unlimitedReports": "Unlimited Reports",
+      "voting": "Voting",
+      "basicBadges": "Basic Badges",
+      "advancedStats": "Advanced Statistics",
+      "csvExport": "CSV Export",
+      "advancedFilters": "Advanced Filters",
+      "customThemes": "Custom Themes",
+      "apiAccess": "API Access",
+      "prioritySupport": "Priority Support",
+      "creatorTools": "Creator Tools",
+      "extendedApi": "Extended API",
+      "advancedReports": "Advanced Reports",
+      "whitelistRequests": "Whitelist Requests"
+    }
+  },
+  "role": {
+    "free": "Free",
+    "premium": "Premium",
+    "pro": "Pro",
+    "freeBenefits": "5 reports/day, voting, basic badges",
+    "premiumBenefits": "Unlimited, advanced stats, CSV export",
+    "proBenefits": "API access, priority support, creator tools"
+  },
+  "footer": {
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "help": "Help",
+    "supportUs": "Support Us",
+    "donate": "Donate",
+    "upgradeToProTitle": "Upgrade to Pro",
+    "upgradeToProDescription": "Unlock API access and creator tools"
+  },
+  "time": {
+    "minutesAgo": "{count} minute(s) ago",
+    "hoursAgo": "{count} hour(s) ago",
+    "daysAgo": "{count} day(s) ago"
+  },
+  "floating": {
+    "tooltip": {
+      "aiDetected": "AI content detected",
+      "domainReported": "Domain has reports",
+      "notReported": "Not reported",
+      "whitelisted": "Trusted domain"
+    }
+  },  "notifications": {
+    "aiConfirmed": "This page contains confirmed AI content",
+    "domainHasReports": "This domain has AI content reports",
+    "humanConfirmed": "This page is confirmed human content"
+  },
+  "about": {
+    "title": "Arti AI Detector",
+    "version": "Version {version}",
+    "description": "A community-driven extension for detecting AI-generated content on the web. Help build a more transparent internet by contributing to our collective knowledge.",
+    "features": {
+      "detection": {
+        "title": "AI Detection",
+        "description": "Advanced algorithms to identify AI-generated text and content across the web"
+      },
+      "community": {
+        "title": "Community Driven",
+        "description": "Collaborative platform where users vote and verify content authenticity"
+      },
+      "realtime": {
+        "title": "Real-time Updates",
+        "description": "Instant notifications and live status updates as you browse"
+      },
+      "privacy": {
+        "title": "Privacy First",
+        "description": "Your browsing data stays private. We only analyze reported content"
+      },
+      "leaderboard": {
+        "title": "Leaderboard",
+        "description": "Compete with other contributors and earn badges for accurate reporting"
+      },
+      "multilingual": {
+        "title": "Multilingual",
+        "description": "Support for multiple languages and international content detection"
+      }
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "steps": {
+        "browse": {
+          "title": "Browse the Web",
+          "description": "Use the internet normally while the extension runs in the background"
+        },
+        "detect": {
+          "title": "AI Detection",
+          "description": "Our algorithms analyze reported pages for potential AI-generated content"
+        },
+        "vote": {
+          "title": "Community Voting",
+          "description": "Users vote on content authenticity to build collective intelligence"
+        },
+        "learn": {
+          "title": "Continuous Learning",
+          "description": "The system improves accuracy through community feedback and machine learning"
+        }
+      }
+    },
+    "team": {
+      "title": "Team & Credits",
+      "roles": {
+        "founder": "Founder & CEO",
+        "developer": "Lead Developer",
+        "designer": "UI/UX Designer"
+      }
+    },
+    "links": {
+      "title": "Useful Links",
+      "items": {
+        "website": "Official Website",
+        "github": "GitHub Repository",
+        "documentation": "Documentation",
+        "blog": "Blog & Updates"
+      }
+    },
+    "support": {
+      "title": "Support & Help",
+      "options": {
+        "faq": {
+          "title": "Frequently Asked Questions",
+          "description": "Find answers to common questions and troubleshooting tips",
+          "action": "View FAQ"
+        },
+        "contact": {
+          "title": "Contact Support",
+          "description": "Get in touch with our support team for assistance",
+          "action": "Send Email"
+        },
+        "community": {
+          "title": "Community Discord",
+          "description": "Join our Discord server to connect with other users",
+          "action": "Join Discord"
+        }
+      }
+    },
+    "legal": {
+      "title": "Privacy & Legal",
+      "readMore": "Read More",
+      "items": {
+        "privacy": {
+          "title": "Privacy Policy",
+          "description": "Learn how we protect your data and respect your privacy"
+        },
+        "terms": {
+          "title": "Terms of Service",
+          "description": "Read our terms and conditions for using the extension"
+        },
+        "licenses": {
+          "title": "Open Source Licenses",
+          "description": "View the licenses for open source libraries we use"
+        }
+      }
+    },
+    "changelog": {
+      "title": "Version History",
+      "latest": "Latest",
+      "versions": {
+        "1.0.0": {
+          "initialRelease": "Initial public release with core AI detection features",
+          "communityVoting": "Community voting and verification system",
+          "realTimeDetection": "Real-time content analysis and notifications"
+        },
+        "0.9.0": {
+          "betaLaunch": "Public beta launch with expanded user testing",
+          "leaderboardSystem": "Leaderboard and badge system implementation",
+          "multiLanguage": "Multi-language support and internationalization"
+        },
+        "0.8.0": {
+          "alphaRelease": "Alpha release for early testers and feedback",
+          "basicDetection": "Basic AI content detection algorithms",
+          "userAccounts": "User account system and authentication"
+        }
+      }
+    },
+    "footer": {
+      "copyright": "© {year} Arti AI Detector. All rights reserved.",
+      "buildInfo": "Build: {build}"
+    }
+  }
+}
