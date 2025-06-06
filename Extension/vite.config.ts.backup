@@ -44,6 +44,36 @@ function copyHtmlFiles() {
   }
 }
 
+// Plugin pour corriger le content script
+function fixContentScript() {
+  return {
+    name: 'fix-content-script',
+    writeBundle() {
+      const contentPath = 'dist/content.js'
+      if (existsSync(contentPath)) {
+        let content = readFileSync(contentPath, 'utf-8')
+        
+        // Remove all import statements and replace with content from background.js
+        content = content.replace(/import\s*\{[^}]*\}\s*from\s*["'][^"']*["']\s*;?/g, '')
+        
+        // Supprimer les exports ES6 qui causent des problèmes
+        content = content.replace(/export\s*\{[^}]*\}\s*;?\s*$/gm, '')
+        content = content.replace(/export\s+.*$/gm, '')
+        
+        // Fix for import.meta.url references
+        content = content.replace(/import\.meta\.url/g, '"chrome-extension://" + chrome.runtime.id')
+        
+        // Wrap everything in an IIFE to avoid global scope pollution
+        if (!content.includes('(function()')) {
+          content = `(function() {\n"use strict";\n${content}\n})();`
+        }
+        
+        writeFileSync(contentPath, content)
+      }
+    }
+  }
+}
+
 // Plugin pour corriger le background script
 function fixBackgroundScript() {
   return {
@@ -134,38 +164,6 @@ function fixBackgroundScript() {
   }
 }
 
-// Plugin pour corriger le content script
-function fixContentScript() {
-  return {
-    name: 'fix-content-script',
-    writeBundle() {
-      const contentPath = 'dist/content.js'
-      if (existsSync(contentPath)) {
-        let content = readFileSync(contentPath, 'utf-8')
-        // Supprimer les exports ES6 qui causent des problèmes
-        content = content.replace(/export\s*\{[^}]*\}\s*;?\s*$/gm, '')
-        content = content.replace(/export\s+.*$/gm, '')
-        // Supprimer uniquement les imports/exports ES6 en début de ligne (plus sûr pour code minifié)
-        content = content.replace(/^\s*import .*$/gm, '')
-        content = content.replace(/^\s*export .*$/gm, '')
-        // Fix for import.meta.url references
-        content = content.replace(/import\.meta\.url/g, '"chrome-extension://" + chrome.runtime.id')
-        // Handle specific pattern from compiled code
-        content = content.replace(
-          /(Promise\.resolve\(\)\.then\(\(\)\s*=>.*?)import\.meta\.url(.*?\))/g, 
-          '$1"chrome-extension://" + chrome.runtime.id$2'
-        )
-        // Fix window references in content script environment
-        content = content.replace(/typeof window<"u"/g, 'true')
-        content = content.replace(/typeof window!=="undefined"/g, 'true')
-        content = content.replace(/typeof window>"u"/g, 'false')
-        content = content.replace(/typeof window=="undefined"/g, 'false')
-        writeFileSync(contentPath, content, { encoding: 'utf-8' })
-      }
-    }
-  }
-}
-
 export default defineConfig({
   plugins: [vue(), copyManifest(), copyHtmlFiles(), fixContentScript(), fixBackgroundScript()],
   base: './',
@@ -173,12 +171,45 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
+        popup: resolve(__dirname, 'src/popup/popup.html'),
+        options: resolve(__dirname, 'src/options/options.html'),
+        background: resolve(__dirname, 'src/background/background.ts'),
         content: resolve(__dirname, 'src/content/content.ts'),
       },
-      output: {
-        format: 'iife',
-        entryFileNames: '[name].js',
-      },
+      output: {        entryFileNames: (chunkInfo) => {
+          // Pour les scripts d'extension, on veut des fichiers uniques sans imports
+          if (chunkInfo.name === 'background' || chunkInfo.name === 'content') {
+            return '[name].js';
+          }
+          return '[name].js';
+        },
+        chunkFileNames: (chunkInfo) => {
+          // Éviter les noms de fichiers commençant par "_" pour Chrome
+          const name = chunkInfo.name || 'chunk';
+          return name.startsWith('_') ? name.substring(1) + '.js' : '[name].js';
+        },
+        assetFileNames: (assetInfo) => {
+          // Éviter les noms de fichiers commençant par "_" pour Chrome
+          const name = assetInfo.name || 'asset';
+          if (name.startsWith('_')) {
+            return name.substring(1) + '.[ext]';
+          }
+          return '[name].[ext]';
+        },
+        // Configuration spéciale pour les scripts d'extension
+        manualChunks: (id) => {
+          // Forcer le background script à être dans un seul chunk
+          if (id.includes('background.ts')) {
+            return 'background';
+          }
+          // Forcer le content script à être dans un seul chunk
+          if (id.includes('content.ts')) {
+            return 'content';
+          }          // Forcer les utilitaires utilisés par les scripts dans le même chunk
+          if (id.includes('src/utils/') && (id.includes('api.ts') || id.includes('helpers.ts'))) {
+            return null; // Les inclure inline dans le background et content
+          }        }
+      }
     },
     outDir: 'dist',
     emptyOutDir: true,
