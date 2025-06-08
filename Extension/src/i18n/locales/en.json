@@ -42,8 +42,6 @@
     "aiDescription": "Community confirmed this page contains AI-generated content",
     "not_ai": "Human Content",
     "not_aiDescription": "Community confirmed this page contains human-created content",
-    "pending": "Under Review",
-    "pendingDescription": "Community is currently reviewing this page",
     "unknown": "Not Reported",
     "unknownDescription": "This page hasn't been reported yet",
     "unknownWithReports": "Not reported but domain has reports",
@@ -54,12 +52,13 @@
   "contentTypes": {
     "text": "Text",
     "image": "Image",
+    "video": "Video",
     "audio": "Audio",
-    "video": "Video"
+    "other": "Other"
   },
   "report": {
     "type": "Report Type",
-    "selectType": "Select report type...",
+    "selectType": "Select content type...",
     "contentType": "Content Type",
     "evidenceUrl": "Evidence URL",
     "evidenceUrlPlaceholder": "Link to evidence (optional)",
@@ -73,13 +72,6 @@
     "submitError": "Error submitting report",
     "infoTitle": "How it works",
     "infoText": "Your report will be reviewed by the community. Other users can vote to approve or refute your findings."
-  },
-  "reportType": {
-    "ai_content": "AI-generated content",
-    "suspicious_content": "Suspicious content",
-    "misleading_content": "Misleading content",
-    "spam_content": "Spam content",
-    "other": "Other"
   },
   "vote": {
     "approve": "Approve",
@@ -416,5 +408,13 @@
       "copyright": "© {year} Arti AI Detector. All rights reserved.",
       "buildInfo": "Build: {build}"
     }
+  },
+  "reportType": {
+    "text": "Text",
+    "image": "Image",
+    "video": "Video",
+    "audio": "Audio",
+    "other": "Other",
+    "undefined": "Unknown type"
   }
 }

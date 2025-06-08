@@ -9,7 +9,7 @@
             :class="getRoleColorClass(userRole)"
           ></div>
           <span class="text-sm font-medium text-gray-700">
-            {{ t(`role.${userRole}`) }}
+            {{ t('role_Free') }}
           </span>
         </div>
         
@@ -38,21 +38,21 @@
           target="_blank"
           class="text-gray-500 hover:text-gray-700 transition-colors"
         >
-          {{ t('footer.privacy') }}
+          {{ t('footer_privacy') }}
         </a>
         <a 
           href="https://arti-ai-detector.com/terms"
           target="_blank"
           class="text-gray-500 hover:text-gray-700 transition-colors"
         >
-          {{ t('footer.terms') }}
+          {{ t('footer_terms') }}
         </a>
         <a 
           href="https://arti-ai-detector.com/help"
           target="_blank"
           class="text-gray-500 hover:text-gray-700 transition-colors"
         >
-          {{ t('footer.help') }}
+          {{ t('footer_help') }}
         </a>
       </div>
 

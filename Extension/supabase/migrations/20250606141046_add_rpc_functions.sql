@@ -93,7 +93,7 @@ BEGIN
   -- Badge premier signalement
   IF reports_count >= 1 THEN
     INSERT INTO user_badges (user_id, badge_id, awarded_at)
-    SELECT check_and_award_badges.user_id, id, NOW()
+    SELECT check_and_award_badges.user_id, badges.id, NOW()
     FROM badges WHERE type_badge = 'first_report'
     ON CONFLICT (user_id, badge_id) DO NOTHING;
   END IF;
@@ -143,7 +143,7 @@ BEGIN
     AND b.type_badge IN ('reports', 'votes_given', 'votes_received', 'trust_index')
   ) >= 4 THEN
     INSERT INTO user_badges (user_id, badge_id, awarded_at)
-    SELECT check_and_award_badges.user_id, id, NOW()
+    SELECT check_and_award_badges.user_id, badges.id, NOW()
     FROM badges WHERE type_badge = 'all_badges'
     ON CONFLICT (user_id, badge_id) DO NOTHING;
   END IF;

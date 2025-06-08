@@ -27,7 +27,7 @@ export interface Report {
   votes?: Vote[];
 }
 
-export type ContentType = 'text' | 'image' | 'audio' | 'video';
+export type ContentType = 'text' | 'image' | 'audio' | 'video' | 'other';
 export type ReportStatus = 'pending' | 'ia' | 'not_ia';
 
 export interface Vote {

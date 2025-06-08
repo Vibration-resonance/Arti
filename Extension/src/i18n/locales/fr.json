@@ -40,8 +40,6 @@
     "aiDescription": "La communauté a confirmé que cette page contient du contenu généré par IA",
     "not_ai": "Contenu humain",
     "not_aiDescription": "La communauté a confirmé que cette page contient du contenu créé par des humains",
-    "pending": "En cours d'examen",
-    "pendingDescription": "La communauté examine actuellement cette page",
     "unknown": "Non signalé",
     "unknownDescription": "Cette page n'a pas encore été signalée",
     "unknownWithReports": "Non signalée mais le domaine a des signalements",
@@ -52,11 +50,12 @@
   "contentTypes": {
     "text": "Texte",
     "image": "Image",
+    "video": "Vidéo",
     "audio": "Audio",
-    "video": "Vidéo"
+    "other": "Autre"
   },  "report": {
     "type": "Type de signalement",
-    "selectType": "Sélectionner le type de signalement...",
+    "selectType": "Sélectionner le type de contenu...",
     "contentType": "Type de contenu",
     "evidenceUrl": "URL de preuve",
     "evidenceUrlPlaceholder": "Lien vers une preuve (optionnel)",
@@ -71,13 +70,7 @@
     "infoTitle": "Comment ça marche",
     "infoText": "Votre signalement sera examiné par la communauté. D'autres utilisateurs peuvent voter pour approuver ou réfuter vos conclusions."
   },
-  "reportType": {
-    "ai_content": "Contenu généré par IA",
-    "suspicious_content": "Contenu suspect",
-    "misleading_content": "Contenu trompeur",
-    "spam_content": "Contenu spam",
-    "other": "Autre"
-  },  "vote": {
+  "vote": {
     "approve": "Approuver",
     "refute": "Réfuter",
     "notAi": "Pas IA",
@@ -410,5 +403,13 @@
       "copyright": "© {year} Arti AI Detector. Tous droits réservés.",
       "buildInfo": "Build: {build}"
     }
+  },
+  "reportType": {
+    "text": "Texte",
+    "image": "Image",
+    "video": "Vidéo",
+    "audio": "Audio",
+    "other": "Autre",
+    "undefined": "Type inconnu"
   }
 }

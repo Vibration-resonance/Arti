@@ -130,7 +130,7 @@ async function handleMessage(message: any, _sender: chrome.runtime.MessageSender
 
 // Récupérer le statut d'une page
 async function getPageStatus(url: string): Promise<PageStatus> {
-  const response = await apiClient.get<PageStatus>(`/getPageStatus?url=${encodeURIComponent(url)}`);
+  const response = await apiClient.get<PageStatus>(`/get-page-status?url=${encodeURIComponent(url)}`);
   
   if (!response.success) {
     // Retourner un statut par défaut en cas d'erreur
@@ -150,23 +150,34 @@ async function getPageStatus(url: string): Promise<PageStatus> {
 
 // Créer un signalement
 async function createReport(data: any) {
-  return await apiClient.post('/createReport', data);
+  try {
+    const response = await apiClient.post('/create-report', data);
+    console.log('[background] createReport response:', response);
+    if (typeof response !== 'object' || response === null || !('success' in response)) {
+      console.error('[background] Malformed response from create-report:', response);
+      return { success: false, error: 'Malformed response from server.' };
+    }
+    return response;
+  } catch (error) {
+    console.error('[background] Error in createReport:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
 }
 
 // Créer un vote
 async function createVote(data: any) {
-  return await apiClient.post('/createVote', data);
+  return await apiClient.post('/create-vote', data);
 }
 
 // Récupérer le leaderboard
 async function getLeaderboard(params: any) {
   const queryString = new URLSearchParams(params).toString();
-  return await apiClient.get(`/getTopUsers?${queryString}`);
+  return await apiClient.get(`/get-top-users?${queryString}`);
 }
 
 // Récupérer les stats utilisateur
 async function getUserStats(userId: string) {
-  return await apiClient.get(`/getUserStats?userId=${userId}`);
+  return await apiClient.get(`/get-user-stats?userId=${userId}`);
 }
 
 // Mettre à jour les paramètres
@@ -201,12 +212,17 @@ async function getSettings(): Promise<ExtensionSettings> {
 
 // Récupérer les rapports récents
 async function getRecentReports() {
-  return await apiClient.get('/getRecentReports');
+  return await apiClient.get('/get-recent-reports');
+}
+
+// Récupérer les domaines whitelist
+async function getWhitelistDomains() {
+  return await apiClient.get('/get-whitelist-domains');
 }
 
 // Créer une session de paiement Stripe
 async function createCheckoutSession(plan: string) {
-  return await apiClient.post('/createCheckoutSession', { plan });
+  return await apiClient.post('/create-checkout-session', { plan });
 }
 
 // Exporter les données utilisateur

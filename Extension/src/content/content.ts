@@ -119,8 +119,6 @@ class ArtiAIDetectorContent {
         return '🤖';
       case 'not_ai':
         return '✓';
-      case 'pending':
-        return '?';
       case 'whitelisted':
         return '✓';
       default:
@@ -132,8 +130,6 @@ class ArtiAIDetectorContent {
         return safeT('floating.tooltip.aiDetected');
       case 'not_ai':
         return safeT('floating.tooltip.humanContent');
-      case 'pending':
-        return safeT('status.pending');
       case 'whitelisted':
         return safeT('floating.tooltip.whitelisted');
       default:
@@ -276,7 +272,7 @@ class ArtiAIDetectorContent {
         <!-- Header -->
         <div class="bg-blue-600 text-white p-4">
           <div class="flex items-center justify-between">
-            <h3 class="font-semibold">${safeT('popup.title')}</h3>
+            <h3 class="font-semibold">${safeT('popup_title')}</h3>
             <button id="close-panel" class="text-white hover:text-gray-200">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
@@ -287,7 +283,7 @@ class ArtiAIDetectorContent {
 
         <!-- Current Page Status -->
         <div class="p-4 border-b">
-          <h4 class="font-medium mb-2">${safeT('popup.currentPage')}</h4>
+          <h4 class="font-medium mb-2">${safeT('popup_currentPage')}</h4>
           <div class="text-sm text-gray-600 mb-2 break-all">${status.url}</div>
           <div class="flex items-center gap-2">
             <div class="w-3 h-3 rounded-full" style="background-color: ${statusColor}"></div>
@@ -302,7 +298,7 @@ class ArtiAIDetectorContent {
 
         <!-- Recent Reports -->
         <div class="p-4">
-          <h4 class="font-medium mb-3">${safeT('popup.recentReports')}</h4>
+          <h4 class="font-medium mb-3">${safeT('popup_recentReports')}</h4>
           ${reports.length > 0 ? this.createReportsContent(reports) : `
             <div class="text-center text-gray-500 text-sm py-4">
               ${safeT('popup.noReports')}
@@ -316,7 +312,7 @@ class ArtiAIDetectorContent {
     // Ici on devrait vérifier si l'utilisateur est connecté
     // Pour simplifier, on affiche toujours les actions
     
-    if (status.status === 'unknown' || status.status === 'pending') {
+    if (status.status === 'unknown') {
       return `
         <button id="report-page" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
           ${safeT('popup.reportPage')}
@@ -325,16 +321,16 @@ class ArtiAIDetectorContent {
     } else {
       return `
         <div class="space-y-2">
-          <div class="text-sm text-gray-600 mb-3">${safeT('popup.votePage')}</div>
+          <div class="text-sm text-gray-600 mb-3">${safeT('popup_votePage')}</div>
           <div class="flex gap-2">
             <button id="vote-approve" class="flex-1 bg-green-600 text-white py-2 px-3 rounded-lg hover:bg-green-700 transition-colors text-sm">
-              ${safeT('vote.approve')}
+              ${safeT('vote_approve')}
             </button>
             <button id="vote-refute" class="flex-1 bg-red-600 text-white py-2 px-3 rounded-lg hover:bg-red-700 transition-colors text-sm">
-              ${safeT('vote.refute')}
+              ${safeT('vote_refute')}
             </button>
             <button id="vote-not-ai" class="flex-1 bg-gray-600 text-white py-2 px-3 rounded-lg hover:bg-gray-700 transition-colors text-sm">
-              ${safeT('vote.notAi')}
+              ${safeT('vote_notAi')}
             </button>
           </div>
         </div>

@@ -11,7 +11,15 @@
     />
 
     <!-- Main Content -->
-    <div class="p-4 space-y-4">      <!-- Current Page Status -->
+    <div class="p-4 space-y-4">
+      <!-- Feedback visuel signalement -->
+      <div v-if="reportFeedback" :class="[
+        'mb-2 px-4 py-2 rounded text-sm font-medium',
+        reportFeedback.type === 'success' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300'
+      ]">
+        {{ reportFeedback.message }}
+      </div>
+      <!-- Current Page Status -->
       <PageStatusComponent 
         :status="pageStatus"
         :loading="statusLoading"
@@ -22,6 +30,7 @@
         <ReportActions
           v-if="canReport"
           :page-url="currentUrl"
+          :feedback-type="reportFeedback?.type"
           @report-submitted="handleReportSubmitted"
         />
         
@@ -84,20 +93,34 @@ const activeModal = ref<string | null>(null)
 const statusLoading = ref(true)
 const reportsLoading = ref(true)
 
+// Feedback message
+const reportFeedback = ref<{ type: 'success' | 'error', message: string } | null>(null)
+
 // Computed
 const canReport = computed(() => {
-  return pageStatus.value && 
-    (pageStatus.value.status === 'unknown' || pageStatus.value.status === 'pending')
+  return pageStatus.value &&
+    (
+      pageStatus.value.status === 'unknown' ||
+      pageStatus.value.status === 'not_reported'
+    )
 })
 
 const canVote = computed(() => {
-  return pageStatus.value && 
+  return pageStatus.value &&
+    Array.isArray(pageStatus.value.reports) &&
     pageStatus.value.reports.length > 0 &&
-    pageStatus.value.status !== 'unknown'
+    (
+      pageStatus.value.status === 'ai' ||
+      pageStatus.value.status === 'reported_ia' ||
+      pageStatus.value.status === 'not_ai' ||
+      pageStatus.value.status === 'confirmed_not_ia'
+    )
 })
 
 const mainReport = computed(() => {
-  return pageStatus.value?.reports[0] || null
+  return Array.isArray(pageStatus.value?.reports) && pageStatus.value.reports.length > 0
+    ? pageStatus.value.reports[0]
+    : null
 })
 
 // Methods
@@ -159,18 +182,39 @@ const handleModalAction = (action: string, data?: any) => {
 }
 
 const handleReportSubmitted = async (reportData: any) => {
+  if (!isConnected.value) {
+    reportFeedback.value = { type: 'error', message: t('auth.signIn') + ' ' + t('report.submitError') };
+    setTimeout(() => { reportFeedback.value = null }, 3000);
+    return { success: false, error: t('auth.signIn') };
+  }
   try {
     const response = await sendMessageToBackground({
       type: 'CREATE_REPORT',
       data: reportData
     })
-
+    console.log('[PopupApp] Raw report response:', response); // <-- Debug log
     if (response?.success) {
       await loadPageStatus()
       await loadRecentReports()
+      reportFeedback.value = { type: 'success', message: t('report_submitSuccess') }
+    } else {
+      // Log complet et explicite
+      if (response && typeof response === 'object') {
+        console.error('Report error response:', JSON.stringify(response, null, 2))
+      } else {
+        console.error('Report error response:', response)
+      }
+      // Affiche le message d'erreur brut si présent
+      reportFeedback.value = { type: 'error', message: response?.error || response?.message || t('report.submitError') }
     }
+    // Efface le message après 3s
+    setTimeout(() => { reportFeedback.value = null }, 3000)
+    return response
   } catch (error) {
     console.error('Error submitting report:', error)
+    reportFeedback.value = { type: 'error', message: t('report.submitError') }
+    setTimeout(() => { reportFeedback.value = null }, 3000)
+    return { success: false, error: t('report.submitError') }
   }
 }
 
@@ -217,10 +261,13 @@ const loadRecentReports = async () => {
     })
 
     if (response?.success) {
-      recentReports.value = response.data || []
+      recentReports.value = response.data?.reports || []
+    } else {
+      recentReports.value = []
     }
   } catch (error) {
     console.error('Error loading recent reports:', error)
+    recentReports.value = []
   } finally {
     reportsLoading.value = false
   }

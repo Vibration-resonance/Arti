@@ -14,7 +14,7 @@ serve(async (req) => {
 
   if (req.method !== 'POST') {
     return new Response(
-      JSON.stringify({ error: 'Method not allowed' }),
+      JSON.stringify({ success: false, error: 'Method not allowed' }),
       { status: 405, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   }
@@ -24,7 +24,7 @@ serve(async (req) => {
     const authHeader = req.headers.get('Authorization')
     if (!authHeader) {
       return new Response(
-        JSON.stringify({ error: 'Authorization required' }),
+        JSON.stringify({ success: false, error: 'Authorization required' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
@@ -32,7 +32,14 @@ serve(async (req) => {
     // Create Supabase client
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      {
+        global: {
+          headers: {
+            Authorization: authHeader
+          }
+        }
+      }
     )
 
     // Get user from token
@@ -40,18 +47,25 @@ serve(async (req) => {
       authHeader.replace('Bearer ', '')
     )
 
+    // Ajout des logs pour debug
+    console.log('user:', user);
+    if (user) {
+      console.log('user_id:', user.id);
+    }
+
     if (authError || !user) {
       return new Response(
-        JSON.stringify({ error: 'Invalid token' }),
+        JSON.stringify({ success: false, error: 'Invalid token' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
 
     const { url, type_contenu, commentaire, anonyme, whitelist_request } = await req.json()
 
-    if (!url || !type_contenu) {
+    const allowedTypes = ['text', 'image', 'video', 'audio', 'other']
+    if (!url || !type_contenu || !allowedTypes.includes(type_contenu)) {
       return new Response(
-        JSON.stringify({ error: 'URL and content type are required' }),
+        JSON.stringify({ success: false, error: 'URL and valid content type are required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
@@ -67,7 +81,7 @@ serve(async (req) => {
 
     if (existingReport) {
       return new Response(
-        JSON.stringify({ error: 'Page already reported' }),
+        JSON.stringify({ success: false, error: 'Page already reported' }),
         { status: 409, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
@@ -82,7 +96,7 @@ serve(async (req) => {
         type_contenu,
         commentaire: commentaire || '',
         anonyme: anonyme || false,
-        status: 'pending'
+        status: 'ia' // Set status to 'ia' immediately
       })
       .select()
       .single()
@@ -131,10 +145,12 @@ serve(async (req) => {
     )
 
   } catch (error) {
+    console.error(error) // Ajout du log pour debug dans les logs Supabase
     return new Response(
       JSON.stringify({ 
         success: false, 
-        error: error.message 
+        error: error.message,
+        details: error // Ajout du détail complet de l'erreur pour debug côté client
       }),
       { 
         status: 500, 

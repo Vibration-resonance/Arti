@@ -6,5 +6,152 @@
   "extDescription": {
     "message": "Détecter et signaler les contenus générés par IA de manière collaborative",
     "description": "Description de l'extension"
-  }
+  },
+  "reporttype_text": {
+    "message": "Texte"
+  },
+  "reporttype_image": {
+    "message": "Image"
+  },
+  "reporttype_video": {
+    "message": "Vidéo"
+  },
+  "reporttype_audio": {
+    "message": "Audio"
+  },
+  "reporttype_other": {
+    "message": "Autre"
+  },
+  "time_hoursAgo": {
+    "message": "il y a {count} heure(s)"
+  },
+  "time_minutesAgo": {
+    "message": "il y a {count} minute(s)"
+  },
+  "time_daysAgo": {
+    "message": "il y a {count} jour(s)"
+  },
+  "status_pending": {
+    "message": "En cours de vérification"
+  },
+  "status_ai": {
+    "message": "Généré par IA"
+  },
+  "status_not_ai": {
+    "message": "Non IA"
+  },
+  "status_not_reported": {
+    "message": "Non signalée"
+  },
+  "status_not_reportedDescription": {
+    "message": "Cette page n'a pas encore été signalée."
+  },
+  "status_aiDescription": {
+    "message": "La communauté a confirmé que cette page contient du contenu généré par IA."
+  },
+  "status_not_aiDescription": {
+    "message": "La communauté a confirmé que cette page contient du contenu humain."
+  },
+  "status_confirmed_not_ia": {
+    "message": "Confirmée non IA"
+  },
+  "status_confirmed_not_iaDescription": {
+    "message": "Cette page est confirmée comme non générée par IA par la communauté."
+  },
+  "status_domain_has_reports": {
+    "message": "Domaine avec signalements IA"
+  },
+  "status_domain_has_reportsDescription": {
+    "message": "Ce domaine a d'autres pages signalées comme générées par IA."
+  },
+  "status_whitelisted": {
+    "message": "Domaine de confiance"
+  },
+  "status_whitelistedDescription": {
+    "message": "Ce domaine est sur la liste de confiance."
+  },
+  "status_unknown": {
+    "message": "Statut inconnu"
+  },
+  "status_unknownDescription": {
+    "message": "Le statut de cette page n'a pas pu être déterminé."
+  },
+  "status_unknownWithReports": {
+    "message": "Non signalée mais le domaine a des signalements."
+  },
+  "popup_recentReports": {
+    "message": "Derniers signalements"
+  },
+  "popup_currentPage": {
+    "message": "Page en cours"
+  },
+  "loading": {
+    "message": "Chargement..."
+  },
+  "popup_title": {
+    "message": "Arti AI Detector"
+  },
+  "role_Free": {
+    "message": "Utilisateur gratuit"
+  },
+  "footer_privacy": {
+    "message": "Confidentialité"
+  },
+  "footer_terms": {
+    "message": "Conditions"
+  },
+  "footer_help": {
+    "message": "Aide"
+  },
+  "popup_reportsCount": {
+    "message": "{count} signalement(s)"
+  },
+  "popup_domainReports": {
+    "message": "{count} signalement(s) sur ce domaine"
+  },
+  "popup_noStatus": {
+    "message": "Impossible de charger le statut de la page"
+  },
+  "reportType_text": { "message": "Texte" },
+  "reportType_image": { "message": "Image" },
+  "reportType_video": { "message": "Vidéo" },
+  "reportType_audio": { "message": "Audio" },
+  "reportType_other": { "message": "Autre" },
+  "reportType_undefined": { "message": "Type inconnu" },
+  "popup_reportPage": { "message": "Signaler cette page" },
+  "popup_reportPageDescription": { "message": "Aidez la communauté en signalant un contenu généré par IA ou suspect sur cette page." },
+  "report_contentType": { "message": "Type de contenu" },
+  "report_selectType": { "message": "Sélectionner le type" },
+  "contentTypes_text": { "message": "Texte" },
+  "contentTypes_image": { "message": "Image" },
+  "contentTypes_video": { "message": "Vidéo" },
+  "contentTypes_audio": { "message": "Audio" },
+  "common_optional": { "message": "Optionnel" },
+  "report_evidenceUrl": { "message": "URL de preuve" },
+  "report_evidenceUrlPlaceholder": { "message": "Lien vers la preuve (optionnel)" },
+  "report_description": { "message": "Description" },
+  "report_descriptionPlaceholder": { "message": "Décrivez pourquoi vous pensez que cette page est générée par IA (optionnel)" },
+  "report_submitting": { "message": "Envoi..." },
+  "report_submit": { "message": "Envoyer le signalement" },
+  "report_submitError": { "message": "Échec de l'envoi du signalement. Veuillez réessayer." },
+  "report_submitSuccess": {
+    "message": "Signalement envoyé avec succès."
+  },
+  "report_infoTitle": { "message": "Comment fonctionnent les signalements" },
+  "report_infoText": { "message": "Les signalements sont examinés par la communauté. Les signalements abusifs ou faux peuvent être supprimés." },
+  "optional": { "message": "Autre" },
+  "status_reported_ia": {
+    "message": "Signalée IA"
+  },
+  "status_reported_iaDescription": {
+    "message": "Cette page a été signalée comme IA. Vous pouvez voter pour confirmer ou réfuter."
+  },
+  "popup_votePage": { "message": "Voter sur cette page" },
+  "vote_approve": { "message": "Approuver" },
+  "vote_refute": { "message": "Réfuter" },
+  "vote_notAi": { "message": "Non IA" },
+  "vote_approveHelp": { "message": "Confirmer que cette page est générée par IA." },
+  "vote_refuteHelp": { "message": "Réfuter que cette page est générée par IA." },
+  "vote_notAiHelp": { "message": "Cette page n'est définitivement pas générée par IA." },
+  "vote_description": { "message": "Êtes-vous d'accord avec ce signalement ? Votez pour aider la communauté." }
 }

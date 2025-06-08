@@ -6,5 +6,188 @@
   "extDescription": {
     "message": "Detect and report AI-generated content collaboratively",
     "description": "Extension description"
+  },
+  "reporttype_text": {
+    "message": "Text"
+  },
+  "reporttype_image": {
+    "message": "Image"
+  },
+  "reporttype_video": {
+    "message": "Video"
+  },
+  "reporttype_audio": {
+    "message": "Audio"
+  },
+  "reporttype_other": {
+    "message": "Other"
+  },
+  "time_hoursAgo": {
+    "message": "{count} hour(s) ago"
+  },
+  "time_minutesAgo": {
+    "message": "{count} minute(s) ago"
+  },
+  "time_daysAgo": {
+    "message": "{count} day(s) ago"
+  },
+  "status_ai": {
+    "message": "AI-generated"
+  },
+  "status_not_ai": {
+    "message": "Not AI"
+  },
+  "status_not_reported": {
+    "message": "Not reported"
+  },
+  "status_unknown": {
+    "message": "Not reported"
+  },
+  "status_unknownWithReports": {
+    "message": "Not reported but domain has reports."
+  },
+  "status_whitelisted": {
+    "message": "Trusted Domain"
+  },
+  "status_reported_ia": {
+    "message": "AI-reported"
+  },
+  "status_reported_iaDescription": {
+    "message": "This page has been reported as AI-generated. You can vote to confirm or refute."
+  },
+  "status_aiDescription": {
+    "message": "The community has confirmed this page contains AI-generated content."
+  },
+  "popup_recentReports": {
+    "message": "Recent Reports"
+  },
+  "popup_currentPage": {
+    "message": "Current Page"
+  },
+  "loading": {
+    "message": "Loading..."
+  },
+  "popup_title": {
+    "message": "Arti AI Detector"
+  },
+  "role_Free": {
+    "message": "Free user"
+  },
+  "footer_privacy": {
+    "message": "Privacy"
+  },
+  "footer_terms": {
+    "message": "Terms"
+  },
+  "footer_help": {
+    "message": "Help"
+  },
+  "popup_reportPage": {
+    "message": "Report this page"
+  },
+  "popup_reportPageDescription": {
+    "message": "Help the community by reporting AI-generated or suspicious content on this page."
+  },
+  "report_contentType": {
+    "message": "Content type"
+  },
+  "report_selectType": {
+    "message": "Select type"
+  },
+  "contentTypes_text": {
+    "message": "Text"
+  },
+  "contentTypes_image": {
+    "message": "Image"
+  },
+  "contentTypes_video": {
+    "message": "Video"
+  },
+  "contentTypes_audio": {
+    "message": "Audio"
+  },
+  "common_optional": {
+    "message": "Optional"
+  },
+  "report_evidenceUrl": {
+    "message": "Evidence URL"
+  },
+  "report_evidenceUrlPlaceholder": {
+    "message": "Link to evidence (optional)"
+  },
+  "report_description": {
+    "message": "Description"
+  },
+  "report_descriptionPlaceholder": {
+    "message": "Describe why you think this page is AI-generated (optional)"
+  },
+  "report_submitting": {
+    "message": "Submitting..."
+  },
+  "report_submit": {
+    "message": "Submit report"
+  },
+  "report_submitError": {
+    "message": "Failed to submit report. Please try again."
+  },
+  "report_submitSuccess": {
+    "message": "Report submitted successfully."
+  },
+  "report_infoTitle": {
+    "message": "How reports work"
+  },
+  "report_infoText": {
+    "message": "Reports are reviewed by the community. False or abusive reports may be removed."
+  },
+  "optional": {
+    "message": "Other"
+  },
+  "popup_reportsCount": {
+    "message": "{count} report(s)"
+  },
+  "popup_domainReports": {
+    "message": "{count} report(s) on this domain"
+  },
+  "reportType_text": {
+    "message": "Text"
+  },
+  "reportType_image": {
+    "message": "Image"
+  },
+  "reportType_video": {
+    "message": "Video"
+  },
+  "reportType_audio": {
+    "message": "Audio"
+  },
+  "reportType_other": {
+    "message": "Other"
+  },
+  "reportType_undefined": {
+    "message": "Unknown type"
+  },
+  "popup_votePage": {
+    "message": "Vote on this page"
+  },
+  "vote_approve": {
+    "message": "Approve"
+  },
+  "vote_refute": {
+    "message": "Refute"
+  },
+  "vote_notAi": {
+    "message": "Not AI"
+  },
+  "vote_approveHelp": {
+    "message": "Confirm this page is AI-generated."
+  },
+  "vote_refuteHelp": {
+    "message": "Refute that this page is AI-generated."
+  },
+  "vote_notAiHelp": {
+    "message": "This page is definitely not AI-generated."
+  },
+  "vote_description": {
+    "message": "Do you agree with this report? Cast your vote to help the community."
   }
 }

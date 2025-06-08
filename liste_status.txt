@@ -1,0 +1,9 @@
+        'ia'::text,
+        'reported_ia'::text,
+        'not_ia'::text,
+        'not_ai'::text,
+        'confirmed_not_ia'::text,
+        'domain_has_reports'::text,
+        'whitelisted'::text,
+        'unknown'::text,
+        'not_reported'::text

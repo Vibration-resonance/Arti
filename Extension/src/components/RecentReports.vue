@@ -5,7 +5,7 @@
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
         </svg>
-        {{ t('popup.recentReports') }}
+        {{ t('popup_recentReports') }}
       </h3>
     </div>
 
@@ -16,7 +16,7 @@
     </div>
 
     <!-- Reports list -->
-    <div v-else-if="reports.length > 0" class="max-h-64 overflow-y-auto custom-scrollbar">
+    <div v-else-if="Array.isArray(reports) && reports.length > 0" class="max-h-64 overflow-y-auto custom-scrollbar">
       <div 
         v-for="report in reports" 
         :key="report.id"
@@ -25,10 +25,10 @@
         <div class="flex items-start justify-between mb-2">
           <div class="flex-1">
             <div class="font-medium text-sm text-gray-800 mb-1">
-              {{ t(`reportType.${report.report_type}`) }}
+              {{ t(`reporttype_${report.type_contenu || report.report_type}`) }}
             </div>
             <div class="text-xs text-gray-600 break-all">
-              {{ truncateUrl(report.page_url) }}
+              {{ truncateUrl(report.url || report.page_url) }}
             </div>
           </div>
           <div class="text-xs text-gray-500 ml-2 flex-shrink-0">
@@ -37,8 +37,8 @@
         </div>
 
         <!-- Description -->
-        <div v-if="report.description" class="text-sm text-gray-600 mb-2 line-clamp-2">
-          {{ report.description }}
+        <div v-if="report.commentaire || report.description" class="text-sm text-gray-600 mb-2 line-clamp-2">
+          {{ report.commentaire || report.description }}
         </div>
 
         <!-- Votes summary -->
@@ -47,19 +47,19 @@
             <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
               <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
             </svg>
-            {{ report.approve_votes || 0 }}
+            {{ report.vote_stats?.approve || 0 }}
           </div>
           <div class="flex items-center gap-1 text-red-600">
             <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
             </svg>
-            {{ report.refute_votes || 0 }}
+            {{ report.vote_stats?.refute || 0 }}
           </div>
           <div class="flex items-center gap-1 text-gray-600">
             <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2Z"/>
             </svg>
-            {{ report.not_ai_votes || 0 }}
+            {{ report.vote_stats?.not_ia || 0 }}
           </div>
         </div>
 
@@ -70,7 +70,7 @@
             :class="getStatusColorClass(report.status)"
           ></div>
           <span class="text-xs text-gray-600">
-            {{ t(`status.${report.status}`) }}
+            {{ t(`status_${report.status}`) }}
           </span>
         </div>
       </div>
@@ -100,7 +100,13 @@ interface Props {
   loading: boolean
 }
 
-defineProps<Props>()
+defineProps({
+  reports: {
+    type: Array,
+    default: () => []
+  },
+  loading: Boolean
+})
 
 const getStatusColorClass = (status: string) => {
   switch (status) {
@@ -108,8 +114,6 @@ const getStatusColorClass = (status: string) => {
       return 'bg-red-500'
     case 'not_ai':
       return 'bg-green-500'
-    case 'pending':
-      return 'bg-yellow-500'
     default:
       return 'bg-gray-400'
   }
@@ -129,12 +133,12 @@ const formatRelativeTime = (dateString: string) => {
   
   if (diffInHours < 1) {
     const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60))
-    return t('time.minutesAgo', { count: diffInMinutes })
+    return t('time_minutesAgo', { count: diffInMinutes })
   } else if (diffInHours < 24) {
-    return t('time.hoursAgo', { count: diffInHours })
+    return t('time_hoursAgo', { count: diffInHours })
   } else {
     const diffInDays = Math.floor(diffInHours / 24)
-    return t('time.daysAgo', { count: diffInDays })
+    return t('time_daysAgo', { count: diffInDays })
   }
 }
 </script>
