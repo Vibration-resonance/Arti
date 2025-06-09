@@ -227,7 +227,7 @@ class ArtiAIDetectorContent {
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       z-index: 10001;
       overflow: hidden;
-      animation: slideUp 0.3s ease-out;
+      animation: arti-slideUp 0.3s ease-out;
     `;
 
     this.floatingPanel.innerHTML = this.createPanelContent();
@@ -474,14 +474,14 @@ class ArtiAIDetectorContent {
       z-index: 10002;
       max-width: 300px;
       font-size: 14px;
-      animation: slideIn 0.3s ease-out;
+      animation: arti-slideIn 0.3s ease-out;
     `;
 
     notification.textContent = message;
     document.body.appendChild(notification);
 
     setTimeout(() => {
-      notification.style.animation = 'slideOut 0.3s ease-in';
+      notification.style.animation = 'arti-slideOut 0.3s ease-in';
       setTimeout(() => notification.remove(), 300);
     }, duration);
   }

@@ -76,7 +76,7 @@
         </button>
 
         <button 
-          @click="submitVote('not_ai')"
+          @click="submitVote('not_ia')"
           :disabled="voting"
           class="flex flex-col items-center gap-1 p-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors disabled:opacity-50"
         >

@@ -81,7 +81,7 @@
       </div>
 
       <!-- Domain reports info -->
-      <div v-if="status.domain_reports_count > 0" class="mt-3 p-3 bg-orange-50 border border-orange-200 rounded">
+      <div v-if="['not_reported', 'unknown'].includes(status.status) && status.domain_reports_count > 0" class="mt-3 p-3 bg-orange-50 border border-orange-200 rounded">
         <div class="flex items-center gap-2 text-orange-700">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
@@ -115,18 +115,27 @@ const props = defineProps<Props>()
 const getStatusColorClass = (status: string) => {
   switch (status) {
     case 'ai':
+    case 'reported_ia':
       return 'bg-red-500'
     case 'not_ai':
       return 'bg-green-500'
+    case 'confirmed_not_ia':
+      return 'bg-emerald-700'
+    case 'domain_has_reports':
+      return 'bg-orange-400'
+    case 'domain_confirmed_not_ia':
+      return 'bg-green-200 border border-green-400'
     case 'whitelisted':
       return 'bg-white border border-gray-300'
+    case 'not_reported':
+    case 'unknown':
     default:
       return 'bg-gray-400'
   }
 }
 
 const getStatusDescription = (status: PageStatus) => {
-  if (status.status === 'unknown' && status.domain_reports_count > 0) {
+  if ((status.status === 'unknown' || status.status === 'not_reported') && status.domain_reports_count > 0) {
     return t('status_unknownWithReports')
   }
   return t(`status_${status.status}Description`)

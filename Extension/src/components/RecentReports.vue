@@ -111,9 +111,20 @@ defineProps({
 const getStatusColorClass = (status: string) => {
   switch (status) {
     case 'ai':
+    case 'reported_ia':
       return 'bg-red-500'
     case 'not_ai':
       return 'bg-green-500'
+    case 'confirmed_not_ia':
+      return 'bg-emerald-700'
+    case 'domain_has_reports':
+      return 'bg-orange-400'
+    case 'domain_confirmed_not_ia':
+      return 'bg-green-200 border border-green-400'
+    case 'whitelisted':
+      return 'bg-white border border-gray-300'
+    case 'not_reported':
+    case 'unknown':
     default:
       return 'bg-gray-400'
   }

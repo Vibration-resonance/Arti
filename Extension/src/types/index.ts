@@ -70,7 +70,17 @@ export interface PageStatus {
   confidence_score: number;
 }
 
-export type PageStatusType = 'ai' | 'not_ai' | 'pending' | 'unknown' | 'whitelisted';
+export type PageStatusType =
+  | 'ai'
+  | 'reported_ia'
+  | 'not_ai'
+  | 'confirmed_not_ia'
+  | 'domain_has_reports'
+  | 'domain_confirmed_not_ia'
+  | 'whitelisted'
+  | 'unknown'
+  | 'not_reported'
+  | 'pending';
 
 export interface Subscription {
   id: string;

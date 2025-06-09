@@ -34,14 +34,38 @@ serve(async (req) => {
 
     const domain = new URL(pageUrl).hostname
 
-    // Vérifier si le domaine est en whitelist
-    const { data: whitelistData } = await supabaseClient
+    // Récupérer tous les domaines whitelistés
+    const { data: allWhitelistDomains } = await supabaseClient
       .from('whitelist_domains')
-      .select('*')
-      .eq('domain', domain)
-      .single()
+      .select('domain')
 
-    if (whitelistData) {
+    // Récupérer tous les patterns wildcard whitelistés
+    const { data: allWhitelistPatterns } = await supabaseClient
+      .from('whitelist_domain_patterns')
+      .select('pattern')
+
+    // Fonction utilitaire pour vérifier si un domaine ou un de ses parents est whitelisté
+    function isWhitelisted(domain: string, whitelist: string[]): boolean {
+      return whitelist.some((white) =>
+        domain === white || domain.endsWith('.' + white)
+      );
+    }
+
+    // Fonction utilitaire pour vérifier si un domaine matche un pattern wildcard
+    function matchesPattern(domain: string, pattern: string): boolean {
+      if (pattern.startsWith('*.')) {
+        return domain === pattern.slice(2) || domain.endsWith('.' + pattern.slice(2));
+      }
+      // Ajoute d'autres règles si besoin
+      return false;
+    }
+
+    const whitelistDomainsArr = (allWhitelistDomains || []).map((d: any) => d.domain);
+    const whitelistPatternsArr = (allWhitelistPatterns || []).map((d: any) => d.pattern);
+    const isDomainWhitelisted = isWhitelisted(domain, whitelistDomainsArr);
+    const isDomainWhitelistedByPattern = whitelistPatternsArr.some((pattern) => matchesPattern(domain, pattern));
+
+    if (isDomainWhitelisted || isDomainWhitelistedByPattern) {
       return new Response(
         JSON.stringify({
           success: true,
@@ -53,7 +77,7 @@ serve(async (req) => {
           }
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      )
+      );
     }
 
     // Récupérer le rapport de la page (tous statuts pertinents)
@@ -131,26 +155,28 @@ serve(async (req) => {
       .limit(5)
 
     let status = 'not_reported'
+    // Nouvelle logique d'affichage conforme à la présentation
     if (pageReport) {
       const votes = pageReport.votes || []
       const notIaVotes = votes.filter((v: any) => v.vote_type === 'not_ia').length
-      if (notIaVotes >= 100) {
+      if (notIaVotes >= 100 || pageReport.status === 'not_ia') {
         status = 'confirmed_not_ia'
       } else if (pageReport.status === 'ia' || pageReport.status === 'reported_ia') {
         status = 'ai'
-      } else if (pageReport.status === 'not_ia' || pageReport.status === 'not_ai') {
+      } else if (pageReport.status === 'not_ai') {
         status = 'not_ai'
-      } else if (pageReport.status === 'domain_has_reports') {
-        status = 'domain_has_reports'
-      } else if (pageReport.status === 'whitelisted') {
-        status = 'whitelisted'
-      } else if (pageReport.status === 'unknown') {
-        status = 'unknown'
-      } else if (pageReport.status === 'not_reported') {
+      } else {
         status = 'not_reported'
       }
     } else if (domainReports && domainReports.length > 0) {
-      status = 'domain_has_reports'
+      // Si au moins un rapport du domaine est IA
+      if (domainReports.some((r: any) => r.status === 'ia' || r.status === 'reported_ia')) {
+        status = 'domain_has_reports'
+      } else if (domainReports.every((r: any) => r.status === 'not_ia' || r.status === 'not_ai')) {
+        status = 'domain_confirmed_not_ia'
+      } else {
+        status = 'domain_has_reports'
+      }
     }
 
     return new Response(

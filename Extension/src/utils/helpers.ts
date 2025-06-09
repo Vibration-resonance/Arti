@@ -11,14 +11,21 @@ export const getDomain = (url: string): string => {
 };
 
 export const getStatusColor = (status: PageStatusType): string => {
-  const colors = {
-    ai: '#ef4444',          // Rouge
-    not_ai: '#10b981',      // Vert
-    pending: '#f59e0b',     // Jaune/Orange
-    unknown: '#6b7280',     // Gris
-    whitelisted: '#ffffff', // Blanc
-  };
-  return colors[status] || colors.unknown;
+  switch (status) {
+    case 'ai':
+      return '#ef4444'; // Red
+    case 'not_ai':
+      return '#10b981'; // Green
+    case 'domain_has_reports':
+      return '#f97316'; // Orange
+    case 'whitelisted':
+      return '#ffffff'; // White
+    case 'not_reported':
+      return '#d1d5db'; // Light gray
+    case 'unknown':
+    default:
+      return '#6b7280'; // Gray
+  }
 };
 
 export const getBadgeColor = (type: BadgeType, level?: string): string => {

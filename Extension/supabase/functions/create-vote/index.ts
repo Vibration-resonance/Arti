@@ -29,10 +29,13 @@ serve(async (req) => {
       )
     }
 
-    // Create Supabase client
+    // Create Supabase client with user's JWT for RLS
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      {
+        global: { headers: { Authorization: authHeader } }
+      }
     )
 
     // Get user from token
@@ -92,6 +95,15 @@ serve(async (req) => {
       )
     }
 
+    // Log pour debug : afficher l'objet inséré et le user complet
+    console.log('[create-vote] Objet inséré dans votes:', {
+      user_id: user.id,
+      report_id,
+      vote_type
+    })
+    console.log('[create-vote] user complet:', user)
+    // Log du rapport récupéré
+    console.log('[create-vote] rapport récupéré:', report)
     // Créer le vote
     const { data: vote, error: voteError } = await supabaseClient
       .from('votes')
@@ -104,6 +116,7 @@ serve(async (req) => {
       .single()
 
     if (voteError) {
+      console.error('[create-vote] Erreur lors de l\'insertion du vote:', voteError)
       throw voteError
     }
 
@@ -121,7 +134,41 @@ serve(async (req) => {
       })
     }
 
-    // Recalculer le statut du rapport
+    // Vérification stricte du statut avant update
+    const allowedStatus = ['ia', 'not_ia'];
+    if (!allowedStatus.includes(report.status)) {
+      console.error('[create-vote] Statut du rapport non autorisé pour update:', report.status);
+      return new Response(
+        JSON.stringify({ error: `Statut du rapport non autorisé: ${report.status}` }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Mettre à jour les compteurs dans reports
+    let updateFields: any = { status: report.status };
+    if (vote_type === 'approve') updateFields.votes_approve = report.votes_approve + 1;
+    if (vote_type === 'refute') updateFields.votes_refute = report.votes_refute + 1;
+    if (vote_type === 'not_ia') updateFields.votes_not_ia = report.votes_not_ia + 1;
+
+    // Ajout du log pour debug
+    console.log('[create-vote] updateFields avant update reports:', updateFields);
+    // Log des valeurs autorisées pour status (à adapter selon la contrainte SQL)
+    console.log('[create-vote] Valeurs autorisées pour status: pending, approved, refuted, not_ia');
+    // Log de la valeur actuelle de report.status
+    console.log('[create-vote] Valeur actuelle de report.status:', report.status);
+
+    if (Object.keys(updateFields).length > 1) { // il y a au moins un compteur à mettre à jour
+      const { error: updateVotesError } = await supabaseClient
+        .from('reports')
+        .update(updateFields)
+        .eq('id', report_id);
+      if (updateVotesError) {
+        console.error('[create-vote] Erreur lors de la mise à jour des compteurs de votes:', updateVotesError);
+        throw updateVotesError;
+      }
+    }
+
+    // Recalculer les votes
     const { data: allVotes } = await supabaseClient
       .from('votes')
       .select('vote_type')
@@ -132,26 +179,22 @@ serve(async (req) => {
     const refuteCount = allVotes?.filter(v => v.vote_type === 'refute').length || 0
     const notIaCount = allVotes?.filter(v => v.vote_type === 'not_ia').length || 0
 
-    let newStatus = 'pending'
-    
-    // Si 100+ votes "not_ia", marquer comme définitivement non-IA
-    if (notIaCount >= 100) {
-      newStatus = 'not_ia'
-    }
-    // Si plus de votes "approve" que "refute" et au moins 5 votes
-    else if (voteCount >= 5 && approveCount > refuteCount) {
-      newStatus = 'ia'
-    }
-    // Si plus de votes "refute" que "approve" et au moins 5 votes
-    else if (voteCount >= 5 && refuteCount > approveCount) {
-      newStatus = 'not_ia'
-    }
+    // Log des votes
+    console.log('[create-vote] Stats votes:', { voteCount, approveCount, refuteCount, notIaCount })
+    // Log du statut avant update
+    console.log('[create-vote] Statut du rapport avant update:', report.status)
 
-    // Mettre à jour le statut du rapport
-    await supabaseClient
-      .from('reports')
-      .update({ status: newStatus })
-      .eq('id', report_id)
+    // Le statut ne change que si 100 votes "not_ia" sont atteints
+    if (notIaCount >= 100 && report.status !== 'not_ia') {
+      const { error: updateError } = await supabaseClient
+        .from('reports')
+        .update({ status: 'not_ia' })
+        .eq('id', report_id)
+      if (updateError) {
+        console.error('[create-vote] Erreur lors de la mise à jour du statut du rapport:', updateError)
+        throw updateError
+      }
+    }
 
     // Vérifier et attribuer des badges
     await supabaseClient.rpc('check_and_award_badges', {
@@ -163,7 +206,7 @@ serve(async (req) => {
         success: true,
         data: {
           vote,
-          newReportStatus: newStatus,
+          newReportStatus: notIaCount >= 100 ? 'not_ia' : report.status,
           voteCount,
           approveCount,
           refuteCount,

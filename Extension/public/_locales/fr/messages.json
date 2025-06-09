@@ -35,28 +35,16 @@
     "message": "En cours de vérification"
   },
   "status_ai": {
-    "message": "Généré par IA"
+    "message": "Signalée IA"
+  },
+  "status_aiDescription": {
+    "message": "Cette page a été signalée comme IA. Vous pouvez voter pour confirmer ou réfuter."
   },
   "status_not_ai": {
     "message": "Non IA"
   },
-  "status_not_reported": {
-    "message": "Non signalée"
-  },
-  "status_not_reportedDescription": {
-    "message": "Cette page n'a pas encore été signalée."
-  },
-  "status_aiDescription": {
-    "message": "La communauté a confirmé que cette page contient du contenu généré par IA."
-  },
   "status_not_aiDescription": {
-    "message": "La communauté a confirmé que cette page contient du contenu humain."
-  },
-  "status_confirmed_not_ia": {
-    "message": "Confirmée non IA"
-  },
-  "status_confirmed_not_iaDescription": {
-    "message": "Cette page est confirmée comme non générée par IA par la communauté."
+    "message": "Cette page a reçu 100 votes Non IA. Elle est considérée comme non générée par IA."
   },
   "status_domain_has_reports": {
     "message": "Domaine avec signalements IA"
@@ -76,8 +64,17 @@
   "status_unknownDescription": {
     "message": "Le statut de cette page n'a pas pu être déterminé."
   },
-  "status_unknownWithReports": {
-    "message": "Non signalée mais le domaine a des signalements."
+  "status_not_reported": {
+    "message": "Non signalée"
+  },
+  "status_not_reportedDescription": {
+    "message": "Cette page n'a pas encore été signalée."
+  },
+  "status_confirmed_not_ia": {
+    "message": "Confirmée non IA"
+  },
+  "status_confirmed_not_iaDescription": {
+    "message": "Cette page est confirmée comme non générée par IA par la communauté."
   },
   "popup_recentReports": {
     "message": "Derniers signalements"
@@ -153,5 +150,11 @@
   "vote_approveHelp": { "message": "Confirmer que cette page est générée par IA." },
   "vote_refuteHelp": { "message": "Réfuter que cette page est générée par IA." },
   "vote_notAiHelp": { "message": "Cette page n'est définitivement pas générée par IA." },
-  "vote_description": { "message": "Êtes-vous d'accord avec ce signalement ? Votez pour aider la communauté." }
+  "vote_description": { "message": "Êtes-vous d'accord avec ce signalement ? Votez pour aider la communauté." },
+  "status_domain_confirmed_not_ia": {
+    "message": "Domaine confirmé non IA"
+  },
+  "status_domain_confirmed_not_iaDescription": {
+    "message": "Toutes les pages signalées sur ce domaine sont confirmées comme non générées par IA."
+  }
 }

@@ -22,6 +22,9 @@ class ApiClient {  private async getHeaders(): Promise<HeadersInit> {
       console.warn('Failed to get auth session:', error);
     }
 
+    // Ajout du log pour vérifier le header Authorization
+    console.log('[api.ts] Headers envoyés:', headers);
+
     return headers;
   }
 
