@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50 rounded-lg p-4 border">
+  <div class="bg-gray-50 rounded-lg p-4 border" :key="languageVersion">
     <h3 class="font-medium text-gray-800 mb-3 flex items-center gap-2">
       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1V3H9V1L3 7V9H21M21 12V10H3V12H21M21 15V13H3V15H21M21 18V16H3V18H21Z"/>
@@ -108,6 +108,7 @@ import type { PageStatus } from '../types'
 interface Props {
   status: PageStatus | null
   loading: boolean
+  languageVersion?: number
 }
 
 const props = defineProps<Props>()

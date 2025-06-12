@@ -36,11 +36,14 @@
   },
   "status_ai": {
     "message": "Signalée IA"
+      },
+  "status_ia": {
+    "message": "Signalée IA"
   },
   "status_aiDescription": {
     "message": "Cette page a été signalée comme IA. Vous pouvez voter pour confirmer ou réfuter."
   },
-  "status_not_ai": {
+  "status_not_ia": {
     "message": "Non IA"
   },
   "status_not_aiDescription": {
@@ -80,7 +83,7 @@
     "message": "Derniers signalements"
   },
   "popup_currentPage": {
-    "message": "Page en cours"
+    "message": "Page actuelle"
   },
   "loading": {
     "message": "Chargement..."
@@ -143,10 +146,10 @@
   "status_reported_iaDescription": {
     "message": "Cette page a été signalée comme IA. Vous pouvez voter pour confirmer ou réfuter."
   },
-  "popup_votePage": { "message": "Voter sur cette page" },
+  "popup_votePage": { "message": "Voter sur la page" },
   "vote_approve": { "message": "Approuver" },
   "vote_refute": { "message": "Réfuter" },
-  "vote_notAi": { "message": "Non IA" },
+  "vote_notAi": { "message": "Pas IA" },
   "vote_approveHelp": { "message": "Confirmer que cette page est générée par IA." },
   "vote_refuteHelp": { "message": "Réfuter que cette page est générée par IA." },
   "vote_notAiHelp": { "message": "Cette page n'est définitivement pas générée par IA." },
@@ -156,5 +159,19 @@
   },
   "status_domain_confirmed_not_iaDescription": {
     "message": "Toutes les pages signalées sur ce domaine sont confirmées comme non générées par IA."
-  }
+  },
+  "popup_noReports": {
+    "message": "Aucun signalement pour le moment"
+  },
+    "popup_noActionsAvailable": {
+    "message": "Aucune action disponible pour cette page"
+  },
+  "common_loading": { "message": "Chargement..." },
+  "floating_tooltip_aiDetected": { "message": "Contenu IA détecté" },
+  "floating_tooltip_domainReported": { "message": "Le domaine a des signalements" },
+  "floating_tooltip_notReported": { "message": "Non signalé" },
+  "floating_tooltip_whitelisted": { "message": "Domaine de confiance" },
+  "notifications_aiConfirmed": { "message": "Cette page contient du contenu IA confirmé" },
+  "notifications_domainHasReports": { "message": "Ce domaine a des signalements de contenu IA" },
+  "notifications_humanConfirmed": { "message": "Cette page est confirmée comme contenu humain" }
 }

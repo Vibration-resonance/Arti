@@ -29,10 +29,10 @@
     "reportPage": "Signaler la page",
     "reportPageDescription": "Aidez la communauté en signalant le contenu généré par IA sur cette page.",
     "votePage": "Voter sur la page",
-    "recentReports": "Signalements récents",
-    "noReports": "Aucun signalement pour le moment",
-    "noReportsDescription": "Commencez par signaler du contenu suspect !",
+    "recentReports": "Signalements récents",    "noReports": "Aucun signalement pour le moment",    "noReportsDescription": "Commencez par signaler du contenu suspect !",
     "noStatus": "Impossible de charger le statut de la page",
+    "noActionsAvailable": "Aucune action disponible pour cette page",
+    "popup_noActionsAvailable": "Aucune action disponible pour cette page",
     "reportsCount": "{count} signalement(s)",
     "domainReports": "{count} signalement(s) sur ce domaine"
   },  "status": {

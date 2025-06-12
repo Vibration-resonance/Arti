@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50 rounded-lg p-4 border">
+  <div class="bg-gray-50 rounded-lg p-4 border" :key="props.languageVersion">
     <h3 class="font-medium text-gray-800 mb-3 flex items-center gap-2">
       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
@@ -110,6 +110,7 @@ import type { Report } from '../types'
 
 interface Props {
   report: Report | null
+  languageVersion?: number // Ajout de la prop
 }
 
 const props = defineProps<Props>()

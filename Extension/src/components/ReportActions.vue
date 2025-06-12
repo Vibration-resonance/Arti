@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+  <div class="report-actions-panel bg-blue-50 rounded-lg p-4 border border-blue-200" :key="languageVersion">
     <h3 class="font-medium text-blue-800 mb-3 flex items-center gap-2">
       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M20 6L9 17l-5-5 1.41-1.41L9 14.17 18.59 4.59 20 6z"/>
@@ -105,6 +105,7 @@ import { t } from '../i18n'
 
 interface Props {
   pageUrl: string
+  languageVersion?: number // Ajout de la prop
 }
 
 const props = defineProps<Props & { feedbackType?: string }>()

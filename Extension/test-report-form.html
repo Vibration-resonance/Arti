@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Formulaire de signalement Arti AI Detector</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #1d4ed8;
+        }
+        .info-box {
+            background: #e0f2fe;
+            border: 1px solid #0288d1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #e8f5e8;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+        .error {
+            background: #ffebee;
+            border-color: #f44336;
+            color: #c62828;
+        }
+        .log {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Test du formulaire de signalement Arti AI Detector</h1>
+        
+        <div class="info-box">
+            <strong>📝 Instructions de test :</strong><br>
+            1. L'extension doit être chargée en mode développeur dans Chrome<br>
+            2. Cliquez sur le bouton flottant qui devrait apparaître en bas à droite<br>
+            3. Testez le nouveau formulaire de signalement intégré<br>
+            4. Vérifiez que tous les champs fonctionnent correctement
+        </div>
+
+        <div class="test-section">
+            <h3>📋 Scénarios de test</h3>
+            
+            <h4>🔍 Test 1: Page non signalée (formulaire de signalement)</h4>
+            <p>Cette page simule une page qui n'a jamais été signalée. Le panel devrait afficher le formulaire complet.</p>
+            <button class="test-button" onclick="simulateNotReported()">Simuler page non signalée</button>
+            
+            <h4>✅ Test 2: Page déjà signalée (boutons de vote)</h4>
+            <p>Cette simulation affiche les boutons de vote si la page était déjà signalée.</p>
+            <button class="test-button" onclick="simulateReported()">Simuler page signalée</button>
+            
+            <h4>🎨 Test 3: Test des styles</h4>
+            <p>Vérifier que le formulaire a le bon style et ressemble à celui de la popup.</p>
+            <button class="test-button" onclick="testStyles()">Tester les styles</button>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 Fonctionnalités à vérifier</h3>
+            <ul>
+                <li>✅ Sélecteur de type de contenu (texte, image, vidéo, audio, autre)</li>
+                <li>✅ Champ URL de preuve (optionnel)</li>
+                <li>✅ Zone de description avec compteur de caractères (0/500)</li>
+                <li>✅ Bouton de soumission avec état de chargement</li>
+                <li>✅ Messages d'erreur et de succès</li>
+                <li>✅ Validation en temps réel</li>
+                <li>✅ Vérification de l'authentification utilisateur</li>
+                <li>✅ Réinitialisation du formulaire après succès</li>
+                <li>✅ Fermeture automatique du panel après soumission</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>🎯 Points d'attention</h3>
+            <div class="info-box">
+                <strong>Ancien comportement :</strong> Un simple bouton "Signaler cette page" qui ouvrait la popup principale<br>
+                <strong>Nouveau comportement :</strong> Formulaire complet intégré directement dans le panel flottant
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>📝 Logs de test</h3>
+            <div id="testLog" class="log">Logs de test apparaîtront ici...</div>
+            <button class="test-button" onclick="clearLog()">Effacer les logs</button>
+        </div>
+    </div>
+
+    <script>
+        function log(message) {
+            const logDiv = document.getElementById('testLog');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${timestamp}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('testLog').innerHTML = '';
+        }
+
+        function simulateNotReported() {
+            log('🔍 Test: Simulation d\'une page non signalée');
+            log('   → Le panel devrait afficher le formulaire de signalement complet');
+            log('   → Vérifiez que tous les champs sont présents et fonctionnels');
+        }
+
+        function simulateReported() {
+            log('✅ Test: Simulation d\'une page déjà signalée');
+            log('   → Le panel devrait afficher les boutons de vote (Approuver, Réfuter, Pas IA)');
+        }
+
+        function testStyles() {
+            log('🎨 Test: Vérification des styles');
+            log('   → Le formulaire devrait avoir un fond bleu clair (bg-blue-50)');
+            log('   → Les bordures doivent être bleues (border-blue-200)');
+            log('   → Les textes doivent être en bleu foncé (text-blue-800)');
+            log('   → Le style doit correspondre exactement à celui de la popup');
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            log('📋 Page de test chargée');
+            log('   → Extension Arti AI Detector doit être active');
+            log('   → Bouton flottant devrait apparaître en bas à droite');
+            log('   → Cliquer sur le bouton pour ouvrir le panel et tester le formulaire');
+        });
+
+        // Simuler quelques interactions pour les tests
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'ARTI_AI_TEST') {
+                log(`📨 Message reçu: ${event.data.message}`);
+            }
+        });
+    </script>
+</body>
+</html>

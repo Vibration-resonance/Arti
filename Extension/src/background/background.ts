@@ -182,6 +182,7 @@ async function getUserStats(userId: string) {
 
 // Mettre à jour les paramètres
 async function updateSettings(settings: ExtensionSettings) {
+  console.log('[background:updateSettings] settings.language =', settings.language);
   await chrome.storage.local.set({ settings });
   
   // Notifier tous les onglets des changements
@@ -201,6 +202,7 @@ async function updateSettings(settings: ExtensionSettings) {
 // Récupérer les paramètres
 async function getSettings(): Promise<ExtensionSettings> {
   const result = await chrome.storage.local.get('settings');
+  console.log('[background:getSettings] result.settings =', result.settings);
   return result.settings || {
     language: 'en',
     showFloatingButton: true,

@@ -30,10 +30,11 @@
     "reportPage": "Report Page",
     "reportPageDescription": "Help the community by reporting AI-generated content on this page.",
     "votePage": "Vote on Page",
-    "recentReports": "Recent Reports",
-    "noReports": "No reports yet",
+    "recentReports": "Recent Reports",    "noReports": "No reports yet",
     "noReportsDescription": "Start by reporting suspicious content!",
     "noStatus": "Unable to load page status",
+    "noActionsAvailable": "No actions available for this page",
+    "popup_noActionsAvailable": "No actions available for this page",
     "reportsCount": "{count} report(s)",
     "domainReports": "{count} report(s) on this domain"
   },
@@ -47,7 +48,9 @@
     "unknownWithReports": "Not reported but domain has reports",
     "whitelisted": "Trusted Domain",
     "whitelistedDescription": "This domain is on the trusted list",
-    "domainReported": "Domain Has Reports"
+    "domainReported": "Domain Has Reports",
+    "status_not_ia": "Not AI status",
+    "status_not_iaDescription": "This content was not detected as AI-generated."
   },
   "contentTypes": {
     "text": "Text",

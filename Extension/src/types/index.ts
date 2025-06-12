@@ -115,7 +115,11 @@ export interface NotificationData {
 }
 
 export interface ExtensionSettings {
-  language: 'fr' | 'en';
+  /**
+   * Langue de l'extension (ex: 'en', 'fr').
+   * Peut être étendue à d'autres langues à l'avenir.
+   */
+  language: string;
   showFloatingButton: boolean;
   showNotifications: boolean;
   anonymousMode: boolean;

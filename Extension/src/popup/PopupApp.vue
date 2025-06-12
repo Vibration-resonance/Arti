@@ -4,6 +4,7 @@
     <PopupHeader 
       :user="currentUser"
       :is-connected="isConnected"
+      :language-version="languageVersion"
       @sign-in="handleSignIn"
       @sign-out="handleSignOut"
       @open-modal="openModal"
@@ -23,6 +24,7 @@
       <PageStatusComponent 
         :status="pageStatus"
         :loading="statusLoading"
+        :language-version="languageVersion"
       />
 
       <!-- Actions Section -->
@@ -31,12 +33,14 @@
           v-if="canReport"
           :page-url="currentUrl"
           :feedback-type="reportFeedback?.type"
+          :language-version="languageVersion"
           @report-submitted="handleReportSubmitted"
         />
         
         <VoteActions
           v-else-if="canVote"
           :report="mainReport"
+          :language-version="languageVersion"
           @vote-submitted="handleVoteSubmitted"
         />
       </div>
@@ -45,12 +49,14 @@
       <RecentReports 
         :reports="recentReports"
         :loading="reportsLoading"
+        :language-version="languageVersion"
       />
     </div>
 
     <!-- Footer -->
     <PopupFooter 
       :user-role="currentUser?.role"
+      :language-version="languageVersion"
       @upgrade="openUpgradeModal"
     />
 
@@ -95,6 +101,9 @@ const reportsLoading = ref(true)
 
 // Feedback message
 const reportFeedback = ref<{ type: 'success' | 'error', message: string } | null>(null)
+
+// Ajout du signal de version de langue
+const languageVersion = ref(0)
 
 // Computed
 const canReport = computed(() => {
@@ -159,6 +168,8 @@ const handleSignOut = async () => {
 }
 
 const handleLanguageChange = (language: string) => {
+  // Incrémente la version pour forcer le re-render
+  languageVersion.value++
   // Language change is handled by the i18n system
   console.log('Language changed to:', language)
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-600 text-white p-4">
+  <div class="bg-blue-600 text-white p-4" :key="languageVersion">
     <div class="flex items-center justify-between mb-3">      <!-- Logo et titre -->
       <div class="flex items-center space-x-2">
         <svg 
@@ -104,6 +104,7 @@ import LanguageSelector from './LanguageSelector.vue'
 interface Props {
   user?: User | null
   isConnected: boolean
+  languageVersion?: number
 }
 
 defineProps<Props>()

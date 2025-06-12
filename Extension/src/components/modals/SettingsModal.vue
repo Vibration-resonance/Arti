@@ -146,21 +146,6 @@
               <span class="text-sm text-gray-600 w-12">{{ settings.buttonSize }}px</span>
             </div>
           </div>
-
-          <!-- Language -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">
-              {{ t('settings.language') }}
-            </label>
-            <select 
-              v-model="settings.language"
-              class="form-select w-full"
-              @change="handleLanguageChange"
-            >
-              <option value="en">English</option>
-              <option value="fr">Français</option>
-            </select>
-          </div>
         </div>
       </div>
 
@@ -294,7 +279,6 @@ interface ExtensionSettings {
   shareStatistics: boolean
   floatingButtonPosition: string
   buttonSize: number
-  language: string
   whitelistDomains: string[]
   apiEndpoint: string
   debugMode: boolean
@@ -311,7 +295,6 @@ const settings = reactive<ExtensionSettings>({
   shareStatistics: true,
   floatingButtonPosition: 'bottom-right',
   buttonSize: 48,
-  language: 'en',
   whitelistDomains: [],
   apiEndpoint: 'https://api.arti-ai-detector.com',
   debugMode: false
@@ -376,10 +359,6 @@ const addDomain = () => {
 
 const removeDomain = (index: number) => {
   settings.whitelistDomains.splice(index, 1)
-}
-
-const handleLanguageChange = () => {
-  emit('action', 'language-changed', settings.language)
 }
 
 onMounted(() => {

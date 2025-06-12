@@ -7,7 +7,7 @@
       <div 
         class="modal-content"
         @click.stop
-        :class="getModalSizeClass()"
+        ref="modalContentRef"
       >
         <!-- Modal Header -->
         <div class="flex items-center justify-between mb-6">
@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { t } from '../i18n'
 
 // Import modal components
@@ -116,6 +116,41 @@ const handleOverlayClick = () => {
 const handleModalAction = (action: string, data?: any) => {
   emit('action', action, data)
 }
+
+const modalContentRef = ref<HTMLElement | null>(null)
+
+function preventScrollPropagation(e: WheelEvent) {
+  const el = modalContentRef.value
+  if (!el) return
+  const { scrollTop, scrollHeight, clientHeight } = el
+  const delta = e.deltaY
+  if (
+    (delta < 0 && scrollTop === 0) ||
+    (delta > 0 && scrollTop + clientHeight >= scrollHeight)
+  ) {
+    e.preventDefault()
+  }
+}
+
+onMounted(() => {
+  document.documentElement.style.overflow = 'hidden'
+  document.body.style.overflow = 'hidden'
+  const app = document.getElementById('app')
+  if (app) app.style.overflow = 'hidden'
+  if (modalContentRef.value) {
+    modalContentRef.value.addEventListener('wheel', preventScrollPropagation, { passive: false })
+  }
+})
+
+onUnmounted(() => {
+  document.documentElement.style.overflow = ''
+  document.body.style.overflow = ''
+  const app = document.getElementById('app')
+  if (app) app.style.overflow = ''
+  if (modalContentRef.value) {
+    modalContentRef.value.removeEventListener('wheel', preventScrollPropagation)
+  }
+})
 </script>
 
 <style scoped>
@@ -138,5 +173,36 @@ const handleModalAction = (action: string, data?: any) => {
 .modal-leave-to .modal-content {
   opacity: 0;
   transform: scale(0.9) translateY(-10px);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5);
+  z-index: 50;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  box-shadow: none;
+  overflow-y: auto;
+  background: #fff;
+  margin: 0;
+  padding: 1.5rem; /* Ajoute une marge intérieure pour éviter que le contenu soit collé aux bords */
 }
 </style>

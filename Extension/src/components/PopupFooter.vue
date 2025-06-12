@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 border-t p-4">
+  <div class="bg-gray-100 border-t p-4" :key="languageVersion">
     <!-- User role and subscription info -->
     <div v-if="userRole" class="mb-3">
       <div class="flex items-center justify-between">
@@ -110,6 +110,7 @@ import { t } from '../i18n'
 
 interface Props {
   userRole?: string | null
+  languageVersion?: number
 }
 
 defineProps<Props>()

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-lg border">
+  <div class="bg-white rounded-lg border" :key="languageVersion">
     <div class="p-4 border-b">
       <h3 class="font-medium text-gray-800 flex items-center gap-2">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -98,6 +98,7 @@ import type { Report } from '../types'
 interface Props {
   reports: Report[]
   loading: boolean
+  languageVersion?: number
 }
 
 defineProps({
@@ -105,7 +106,8 @@ defineProps({
     type: Array,
     default: () => []
   },
-  loading: Boolean
+  loading: Boolean,
+  languageVersion: Number
 })
 
 const getStatusColorClass = (status: string) => {

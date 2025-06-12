@@ -187,8 +187,12 @@ const tabs = computed(() => [
 const version = '1.0.0' // TODO: Get from manifest
 
 // Methods
-const handleLanguageChange = () => {
+const handleLanguageChange = async () => {
   changeLanguage(currentLanguage.value)
+  await sendMessageToBackground({
+    type: 'UPDATE_SETTINGS',
+    data: { language: currentLanguage.value }
+  })
 }
 
 const handleSignIn = async () => {
