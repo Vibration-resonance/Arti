@@ -459,6 +459,9 @@
   border-color: #2563eb !important;
   box-shadow: 0 0 0 2px #2563eb33 !important;
 }
+.arti-ai-detector-panel-content .form-textarea {
+  resize: none !important;
+}
 .arti-ai-detector-panel-content .spinner {
   border: 2px solid #f3f3f3 !important;
   border-top: 2px solid #2563eb !important;

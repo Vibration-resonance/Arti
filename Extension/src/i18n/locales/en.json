@@ -126,7 +126,24 @@
     "badges": "Earned Badges",
     "progress": "Progress",
     "nextLevel": "Next Level",
-    "pointsToNext": "points to next level"
+    "pointsToNext": "points to next level",
+    "nextTier": "Next tier",
+    "maxTier": "Max tier reached",
+    "currentTier": "Current tier",
+    "badgeDescReports": "Submit reports to unlock this badge. Next tier: {n} reports.",
+    "badgeDescVotes": "Vote on reports to unlock this badge. Next tier: {n} votes.",
+    "badgeDescVotesReceived": "Receive votes on your reports to unlock this badge. Next tier: {n} votes received.",
+    "badgeDescConfidence": "Reach a certain trust index percentage to unlock this badge. Next tier: {n}%.",
+    "badgeDescMaster": "Unlock all other badges to earn this special badge.",
+    "contentType": {
+      "image": "Image",
+      "text": "Text",
+      "audio": "Audio",
+      "video": "Video"
+    },
+    "unknownUser": "Unknown user",
+    "confidenceIndex": "Trust Index",
+    "locked": "Locked"
   },  "settings": {
     "title": "Settings",
     "language": "Language",
@@ -419,5 +436,18 @@
     "audio": "Audio",
     "other": "Other",
     "undefined": "Unknown type"
+  },
+  "badgeNames": {
+    "observer": "Observer",
+    "voter": "Voter",
+    "content": "Content",
+    "confidence": "Reliability",
+    "master_detector": "Master Detector",
+    "bronze": "Bronze",
+    "argent": "Silver",
+    "or": "Gold",
+    "diamant": "Diamond",
+    "platine": "Platinum",
+    "master": "Master"
   }
 }

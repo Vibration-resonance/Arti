@@ -199,16 +199,8 @@ class ArtiAIDetectorContent {
   }
 
   private getStatusIcon(status: string): string {
-    switch (status) {
-      case 'ai':
-        return '🤖';
-      case 'not_ai':
-        return '✓';
-      case 'whitelisted':
-        return '✓';
-      default:
-        return this.currentPageStatus?.domain_reports_count ? '!' : '●';
-    }
+    // Affiche toujours l'image arti.png, non sélectionnable et non draggable
+    return `<img src="chrome-extension://${chrome.runtime.id}/icons/arti.png" alt="Arti AI" style="width: 40px; height: 40px; display: block; user-select: none; pointer-events: none; -webkit-user-drag: none;" draggable="false" />`;
   }
 
   private getTooltipText(status: string): string {
@@ -296,6 +288,12 @@ class ArtiAIDetectorContent {
       if (!this.isDragging) {
         button.style.transform = 'scale(1)';
       }
+    });
+
+    // Empêche le drag & drop natif de l'image dans le bouton
+    button.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+      return false;
     });
   }
 
@@ -402,7 +400,7 @@ class ArtiAIDetectorContent {
     `;
   }
   private createActionsContent(status: PageStatus): string {
-    if (status.status === 'not_reported') {
+    if (status.status === 'not_reported' || status.status === 'domain_has_reports') {
       return `
         <div class="report-actions-panel bg-blue-50 rounded-lg p-4 border border-blue-200">
           <h4 class="font-medium text-blue-800 mb-3 flex items-center gap-2">

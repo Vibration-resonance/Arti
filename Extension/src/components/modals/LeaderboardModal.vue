@@ -72,9 +72,9 @@
         <div 
           v-for="(user, index) in leaderboardData" 
           :key="user.id"
-          class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+          class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors relative group"
         >
-          <!-- Rank -->
+          <!-- Rang -->
           <div class="flex-shrink-0 w-8 text-center">
             <span 
               class="text-sm font-bold"
@@ -82,7 +82,8 @@
             >
               {{ index + 1 }}
             </span>
-          </div>          <!-- Avatar -->
+          </div>
+          <!-- Avatar -->
           <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
             <img 
               v-if="user.avatar_url"
@@ -99,7 +100,15 @@
 
           <!-- User info -->
           <div class="flex-1">
-            <div class="font-medium text-sm">{{ user.pseudo }}</div>
+            <div class="font-medium text-sm flex items-center gap-2">
+              {{ user.pseudo }}
+              <!-- Bulle d'infos avancée -->
+              <span v-if="user.indice_confiance !== undefined"
+                class="ml-1 cursor-pointer bg-blue-100 text-blue-700 rounded-full px-2 py-0.5 text-xs"
+                @mouseenter="showTooltip($event, user)"
+                @mouseleave="hideTooltip"
+              >i</span>
+            </div>
             <div class="text-xs text-gray-500">
               {{ user.total_points }} {{ t('leaderboard.points') }}
             </div>
@@ -124,6 +133,18 @@
             </span>
           </div>
         </div>
+      </div>
+
+      <!-- Tooltip global -->
+      <div v-if="tooltip.visible" :style="tooltip.style" class="fixed z-50 w-56 bg-white border border-gray-200 rounded-lg shadow-lg p-3 text-xs text-gray-700 whitespace-pre-line pointer-events-none transition-opacity duration-200 opacity-100">
+        <div><b>Indice de confiance :</b> {{ tooltip.user ? (tooltip.user.indice_confiance * 100).toFixed(0) : '' }}%</div>
+        <div class="mt-2"><b>Stats :</b></div>
+        <ul class="list-disc ml-4">
+          <li>Signalements : {{ tooltip.user?.stats?.reports_count ?? 0 }}</li>
+          <li>Votes donnés : {{ tooltip.user?.stats?.votes_given_count ?? 0 }}</li>
+          <li>Votes reçus : {{ tooltip.user?.stats?.votes_received_count ?? 0 }}</li>
+          <li>Votes positifs reçus : {{ tooltip.user?.stats?.positive_votes_received ?? 0 }}</li>
+        </ul>
       </div>
     </div>
 
@@ -179,7 +200,7 @@ const loadLeaderboard = async () => {
     })
 
     if (response?.success) {
-      leaderboardData.value = response.data || []
+      leaderboardData.value = (response.data?.users) || []
     }
   } catch (error) {
     console.error('Error loading leaderboard:', error)
@@ -240,6 +261,36 @@ const getBadgeIcon = (badgeType: string) => {
     default:
       return '🏆'
   }
+}
+
+const tooltip = ref({
+  visible: false,
+  style: {},
+  user: null as any
+})
+
+function showTooltip(event: MouseEvent, user: any) {
+  const offset = 12;
+  const tooltipWidth = 224; // 56*4 px (w-56)
+  let left = event.clientX - tooltipWidth / 2;
+  let top = event.clientY + offset;
+
+  // Limiter pour ne pas sortir de l'écran
+  const minLeft = 8;
+  const maxLeft = window.innerWidth - tooltipWidth - 8;
+  if (left < minLeft) left = minLeft;
+  if (left > maxLeft) left = maxLeft;
+
+  tooltip.value.visible = true;
+  tooltip.value.user = user;
+  tooltip.value.style = {
+    left: left + 'px',
+    top: top + 'px'
+  };
+}
+function hideTooltip() {
+  tooltip.value.visible = false;
+  tooltip.value.user = null;
 }
 
 watch(activePeriod, () => {

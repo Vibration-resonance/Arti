@@ -118,7 +118,23 @@
     "badges": "Badges obtenus",
     "progress": "Progression",
     "nextLevel": "Niveau suivant",
-    "pointsToNext": "points pour le niveau suivant"
+    "pointsToNext": "points pour le niveau suivant",
+    "nextTier": "Prochain palier",
+    "maxTier": "Palier maximal atteint",
+    "currentTier": "Palier actuel",
+    "badgeDescReports": "Effectuer des signalements pour débloquer ce badge. Prochain palier : {n} signalements.",
+    "badgeDescVotes": "Voter sur des signalements pour débloquer ce badge. Prochain palier : {n} votes.",
+    "badgeDescVotesReceived": "Recevoir des votes sur vos signalements pour débloquer ce badge. Prochain palier : {n} votes reçus.",
+    "badgeDescConfidence": "Atteindre un certain pourcentage d'indice de confiance pour débloquer ce badge. Prochain palier : {n}%.",
+    "badgeDescMaster": "Débloquez tous les autres badges pour obtenir ce badge spécial.",
+    "contentType": {
+      "image": "Image",
+      "text": "Texte",
+      "audio": "Audio",
+      "video": "Vidéo"
+    },
+    "confidenceIndex": "Indice de confiance",
+    "locked": "Non débloqué"
   },  "settings": {
     "title": "Paramètres",
     "language": "Langue",
@@ -411,5 +427,18 @@
     "audio": "Audio",
     "other": "Autre",
     "undefined": "Type inconnu"
+  },
+  "badgeNames": {
+    "observer": "Observateur",
+    "voter": "Votant",
+    "content": "Contenu",
+    "confidence": "Fiabilité",
+    "master_detector": "Maître Détecteur",
+    "bronze": "Bronze",
+    "argent": "Argent",
+    "or": "Or",
+    "diamant": "Diamant",
+    "platine": "Platine",
+    "master": "Maître"
   }
 }

@@ -58,6 +58,9 @@
 
     <!-- Leaderboard content -->
     <div v-else class="space-y-6">
+      <!-- Log visuel pour debug -->
+      <div class="text-xs text-red-600">Nb users: {{ leaderboard.length }}</div>
+
       <!-- Top 3 podium -->
       <div v-if="leaderboard.length >= 3" class="bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
         <h3 class="text-lg font-medium text-gray-900 mb-6 text-center">{{ t('leaderboard.topContributors') }}</h3>
@@ -240,10 +243,23 @@ const loadLeaderboard = async () => {
       category: selectedCategory.value
     })
 
+    console.log('[Leaderboard] Réponse reçue du background:', response)
+
     if (response?.success) {
-      leaderboard.value = response.data.leaderboard || []
+      // Mapping pour correspondre à l'interface attendue par le composant
+      leaderboard.value = (response.data.users || []).map((user: any) => ({
+        id: user.id,
+        pseudo: user.pseudo,
+        avatar_url: user.avatar_url,
+        role: user.role,
+        total_points: user.total_points,
+        total_reports: user.total_reports,
+        accuracy_percentage: user.accuracy_percentage,
+        top_badge: user.badges && user.badges.length > 0 ? { badge_type: user.badges[0].badge_type } : undefined
+      }))
       userPosition.value = response.data.user_position
       currentUserId.value = response.data.current_user_id
+      console.log('[Leaderboard] leaderboard.value:', leaderboard.value)
     }
   } catch (error) {
     console.error('Error loading leaderboard:', error)
@@ -308,7 +324,10 @@ const getCategoryLabel = () => {
   }
 }
 
+console.log('[Leaderboard] Composant monté')
+
 onMounted(() => {
+  console.log('[Leaderboard] onMounted appelé')
   loadLeaderboard()
 })
 </script>

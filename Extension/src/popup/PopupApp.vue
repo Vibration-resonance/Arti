@@ -110,7 +110,8 @@ const canReport = computed(() => {
   return pageStatus.value &&
     (
       pageStatus.value.status === 'unknown' ||
-      pageStatus.value.status === 'not_reported'
+      pageStatus.value.status === 'not_reported' ||
+      pageStatus.value.status === 'domain_has_reports'
     )
 })
 

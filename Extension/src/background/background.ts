@@ -172,7 +172,9 @@ async function createVote(data: any) {
 // Récupérer le leaderboard
 async function getLeaderboard(params: any) {
   const queryString = new URLSearchParams(params).toString();
-  return await apiClient.get(`/get-top-users?${queryString}`);
+  const response = await apiClient.get(`/get-top-users?${queryString}`);
+  console.log('[background:getLeaderboard] API response:', response);
+  return response;
 }
 
 // Récupérer les stats utilisateur
