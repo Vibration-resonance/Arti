@@ -69,6 +69,7 @@
     "descriptionPlaceholder": "Describe why you think this is AI content...",
     "comment": "Comment",
     "anonymous": "Anonymous Report",
+    "report_anonymous": "Anonymous",
     "submit": "Submit Report",
     "submitting": "Submitting...",
     "submitSuccess": "Report submitted successfully",

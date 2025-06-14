@@ -63,6 +63,7 @@
     "descriptionPlaceholder": "Décrivez pourquoi vous pensez que c'est du contenu IA...",
     "comment": "Commentaire",
     "anonymous": "Signalement anonyme",
+    "report_anonymous": "Anonyme",
     "submit": "Envoyer le signalement",
     "submitting": "Envoi en cours...",
     "submitSuccess": "Signalement envoyé avec succès",

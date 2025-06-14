@@ -23,22 +23,6 @@
 
           <label class="flex items-center gap-3">
             <input 
-              v-model="settings.autoDetection"
-              type="checkbox" 
-              class="form-checkbox"
-            >
-            <div>
-              <div class="text-sm font-medium text-gray-700">
-                {{ t('settings.autoDetection') }}
-              </div>
-              <div class="text-xs text-gray-500">
-                {{ t('settings.autoDetectionDescription') }}
-              </div>
-            </div>
-          </label>
-
-          <label class="flex items-center gap-3">
-            <input 
               v-model="settings.showNotifications"
               type="checkbox" 
               class="form-checkbox"
@@ -49,22 +33,6 @@
               </div>
               <div class="text-xs text-gray-500">
                 {{ t('settings.showNotificationsDescription') }}
-              </div>
-            </div>
-          </label>
-
-          <label class="flex items-center gap-3">
-            <input 
-              v-model="settings.soundNotifications"
-              type="checkbox" 
-              class="form-checkbox"
-            >
-            <div>
-              <div class="text-sm font-medium text-gray-700">
-                {{ t('settings.soundNotifications') }}
-              </div>
-              <div class="text-xs text-gray-500">
-                {{ t('settings.soundNotificationsDescription') }}
               </div>
             </div>
           </label>
@@ -91,6 +59,8 @@
             </div>
           </label>
 
+          <!-- Option 'Partager les statistiques' masquée -->
+          <!--
           <label class="flex items-center gap-3">
             <input 
               v-model="settings.shareStatistics"
@@ -106,6 +76,7 @@
               </div>
             </div>
           </label>
+          -->
         </div>
       </div>
 
@@ -127,24 +98,6 @@
               <option value="top-right">{{ t('settings.topRight') }}</option>
               <option value="top-left">{{ t('settings.topLeft') }}</option>
             </select>
-          </div>
-
-          <!-- Button size -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">
-              {{ t('settings.buttonSize') }}
-            </label>
-            <div class="flex items-center gap-4">
-              <input 
-                v-model="settings.buttonSize"
-                type="range" 
-                min="32" 
-                max="64" 
-                step="8"
-                class="flex-1"
-              >
-              <span class="text-sm text-gray-600 w-12">{{ settings.buttonSize }}px</span>
-            </div>
           </div>
         </div>
       </div>
@@ -209,22 +162,23 @@
             </div>
           </div>
 
-          <!-- Debug mode -->
-          <label class="flex items-center gap-3">
+          <!-- Option masquée : debug mode
+          <label class="flex items-start gap-3">
             <input 
               v-model="settings.debugMode"
               type="checkbox" 
-              class="form-checkbox"
+              class="form-checkbox mt-1"
             >
             <div>
               <div class="text-sm font-medium text-gray-700">
                 {{ t('settings.debugMode') }}
               </div>
-              <div class="text-xs text-gray-500">
+              <div class="text-sm text-gray-500">
                 {{ t('settings.debugModeDescription') }}
               </div>
             </div>
           </label>
+          -->
         </div>
       </div>
 
@@ -272,13 +226,10 @@ import { sendMessageToBackground } from '../../utils/chrome'
 
 interface ExtensionSettings {
   showFloatingButton: boolean
-  autoDetection: boolean
   showNotifications: boolean
-  soundNotifications: boolean
   anonymousReporting: boolean
   shareStatistics: boolean
   floatingButtonPosition: string
-  buttonSize: number
   whitelistDomains: string[]
   apiEndpoint: string
   debugMode: boolean
@@ -288,13 +239,10 @@ const saving = ref(false)
 
 const settings = reactive<ExtensionSettings>({
   showFloatingButton: true,
-  autoDetection: true,
   showNotifications: true,
-  soundNotifications: false,
   anonymousReporting: false,
   shareStatistics: true,
   floatingButtonPosition: 'bottom-right',
-  buttonSize: 48,
   whitelistDomains: [],
   apiEndpoint: 'https://api.arti-ai-detector.com',
   debugMode: false

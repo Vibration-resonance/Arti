@@ -63,6 +63,14 @@
         </div>
       </div>
 
+      <!-- Anonymous Reporting -->
+      <div>
+        <label class="flex items-center gap-2">
+          <input type="checkbox" v-model="reportData.anonyme" />
+          <span class="text-sm text-gray-700">{{ t('report.report_anonymous') }}</span>
+        </label>
+      </div>
+
       <!-- Submit button -->
       <button 
         type="submit" 
@@ -100,8 +108,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive, watch, onMounted } from 'vue'
 import { t } from '../i18n'
+import { sendMessageToBackground } from '../utils/chrome'
 
 interface Props {
   pageUrl: string
@@ -114,6 +123,7 @@ interface ReportData {
   content_type: string
   evidence_url: string
   description: string
+  anonyme: boolean
 }
 
 const submitting = ref(false)
@@ -122,7 +132,8 @@ const errorMessage = ref('')
 const reportData = reactive<ReportData>({
   content_type: '',
   evidence_url: '',
-  description: ''
+  description: '',
+  anonyme: false
 })
 
 const emit = defineEmits<{
@@ -133,11 +144,23 @@ const resetForm = () => {
   reportData.content_type = ''
   reportData.evidence_url = ''
   reportData.description = ''
+  reportData.anonyme = false
 }
 
 // Listen for parent feedback to reset form on success
 watch(() => props.feedbackType, (val) => {
   if (val === 'success') resetForm()
+})
+
+onMounted(async () => {
+  try {
+    const response = await sendMessageToBackground({ type: 'GET_SETTINGS' })
+    if (response?.success && response.data) {
+      reportData.anonyme = !!response.data.anonymousReporting
+    }
+  } catch (e) {
+    // ignore
+  }
 })
 
 const submitReport = async () => {
@@ -152,7 +175,7 @@ const submitReport = async () => {
       url: props.pageUrl,
       type_contenu: reportData.content_type,
       commentaire: reportData.description || null,
-      anonyme: false,
+      anonyme: reportData.anonyme,
       whitelist_request: false
     }
     emit('report-submitted', data)

@@ -166,6 +166,24 @@ class ArtiAIDetectorContent {
       return;
     }
 
+    // Déterminer la position à partir des settings
+    let positionStyle = '';
+    switch (this.settings?.floatingButtonPosition) {
+      case 'top-left':
+        positionStyle = 'top: 20px; left: 20px;';
+        break;
+      case 'top-right':
+        positionStyle = 'top: 20px; right: 20px;';
+        break;
+      case 'bottom-left':
+        positionStyle = 'bottom: 20px; left: 20px;';
+        break;
+      case 'bottom-right':
+      default:
+        positionStyle = 'bottom: 20px; right: 20px;';
+        break;
+    }
+
     // Sinon, on crée le bouton normalement
     this.floatingButton = document.createElement('div');
     this.floatingButton.id = 'arti-ai-detector-button';
@@ -174,8 +192,7 @@ class ArtiAIDetectorContent {
     const color = getStatusColor(status);
     this.floatingButton.style.cssText = `
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      ${positionStyle}
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -455,8 +472,12 @@ class ArtiAIDetectorContent {
                 placeholder="${safeT('report_descriptionPlaceholder')}"
                 maxlength="500"
               ></textarea>
-              <div class="text-xs text-gray-500 mt-1">
-                <span id="char-count">0</span>/500
+              <div class="flex items-center justify-between text-xs text-gray-500 mt-1 flex-nowrap">
+                <span class="flex-shrink-0" style="min-width:0"><span id="char-count">0</span>/500</span>
+                <label class="flex items-center gap-1 min-w-0 w-auto flex-shrink-0 ml-2">
+                  <input type="checkbox" id="report-anonyme" class="flex-shrink-0" />
+                  <span class="text-sm text-gray-700 whitespace-nowrap min-w-0 max-w-full">${safeT('report.report_anonymous')}</span>
+                </label>
               </div>
             </div>
 
@@ -583,12 +604,13 @@ class ArtiAIDetectorContent {
 
       // Préparer les données
       const evidenceUrlInput = this.floatingPanel?.querySelector('#evidence-url') as HTMLInputElement;
+      const anonymeInput = this.floatingPanel?.querySelector('#report-anonyme') as HTMLInputElement;
       const reportData = {
         url: window.location.href,
         type_contenu: reportType.value,
         commentaire: description.value || null,
         evidence_url: evidenceUrlInput?.value || null,
-        anonyme: false,
+        anonyme: anonymeInput?.checked || false,
         whitelist_request: false
       };
 
@@ -623,6 +645,12 @@ class ArtiAIDetectorContent {
         this.setSubmitState(false);
       }
     });
+
+    // Initialiser la case à cocher anonyme selon les settings
+    const anonymeInput = this.floatingPanel?.querySelector('#report-anonyme') as HTMLInputElement;
+    if (anonymeInput && this.settings && typeof this.settings.anonymousReporting === 'boolean') {
+      anonymeInput.checked = !!this.settings.anonymousReporting;
+    }
   }
 
   private setSubmitState(loading: boolean) {
@@ -827,10 +855,13 @@ class ArtiAIDetectorContent {
     chrome.storage.onChanged.addListener((changes, areaName) => {
       if (areaName === 'local' && changes.settings) {
         const newSettings = changes.settings.newValue;
+        this.settings = newSettings;
+        // Toujours mettre à jour l'affichage du bouton flottant
+        this.handleSettingsUpdate();
+        // Mettre à jour la langue si besoin
         if (newSettings?.language && newSettings.language !== this.settings?.language) {
           // eslint-disable-next-line no-console
           console.log('[ArtiAIDetectorContent:storage.onChanged] changeLanguage', newSettings.language);
-          this.settings = newSettings;
           changeLanguage(newSettings.language);
           this.rerenderPanelIfOpen();
         }

@@ -122,6 +122,11 @@ export interface ExtensionSettings {
   language: string;
   showFloatingButton: boolean;
   showNotifications: boolean;
+  anonymousReporting?: boolean;
   anonymousMode: boolean;
   theme: 'light' | 'dark' | 'auto';
+  /**
+   * Position du bouton flottant : 'bottom-right', 'bottom-left', 'top-right', 'top-left'
+   */
+  floatingButtonPosition?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
 }
