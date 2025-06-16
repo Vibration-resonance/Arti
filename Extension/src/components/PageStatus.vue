@@ -42,7 +42,8 @@
           {{ t('popup_reportsCount', { count: status.reports.length }) }}
         </div>
         
-        <!-- Main report info -->
+        <!-- Main report info (supprimé car doublon avec Vote on this page) -->
+        <!--
         <div class="bg-white rounded p-3 border">
           <div class="flex items-center justify-between mb-2">
             <span class="text-sm font-medium text-gray-800">
@@ -52,32 +53,8 @@
               {{ formatDate(status.reports[0].created_at) }}
             </span>
           </div>
-          
-          <!-- Votes summary -->
-          <div class="flex items-center gap-4 text-xs">
-            <div class="flex items-center gap-1 text-green-600">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-              </svg>
-              {{ status.reports[0].approve_votes || 0 }}
-              <span>{{ t('vote_approve') }}</span>
-            </div>
-            <div class="flex items-center gap-1 text-red-600">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-              </svg>
-              {{ status.reports[0].refute_votes || 0 }}
-              <span>{{ t('vote_refute') }}</span>
-            </div>
-            <div class="flex items-center gap-1 text-gray-600">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2Z"/>
-              </svg>
-              {{ status.reports[0].not_ai_votes || 0 }}
-              <span>{{ t('vote_notAi') }}</span>
-            </div>
-          </div>
         </div>
+        -->
       </div>
 
       <!-- Domain reports info -->

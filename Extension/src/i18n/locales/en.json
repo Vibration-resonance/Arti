@@ -262,7 +262,10 @@
       "extendedApi": "Extended API",
       "advancedReports": "Advanced Reports",
       "whitelistRequests": "Whitelist Requests"
-    }
+    },
+    "freeDescription": "You are using the free version. Limited to 5 reports per day, access to basic features.",
+    "premiumDescription": "You are a Premium subscriber. Unlimited reports, advanced statistics, CSV export, and more.",
+    "proDescription": "You are a Pro subscriber. API access, advanced tools, priority support, and all Premium features."
   },
   "role": {
     "free": "Free",

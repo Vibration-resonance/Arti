@@ -15,7 +15,7 @@
         
         <!-- Upgrade button for free users -->
         <button 
-          v-if="userRole === 'free'"
+          v-if="userRole && userRole.toLowerCase() === 'free'"
           @click="$emit('upgrade')"
           class="text-xs bg-gradient-to-r from-blue-500 to-purple-600 text-white px-3 py-1 rounded-full hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-medium"
         >
@@ -122,7 +122,7 @@ defineEmits<{
 const version = '1.0.0' // TODO: Get from manifest or package.json
 
 const getRoleColorClass = (role: string) => {
-  switch (role) {
+  switch (role?.toLowerCase()) {
     case 'free':
       return 'bg-gray-400'
     case 'premium':
@@ -135,7 +135,7 @@ const getRoleColorClass = (role: string) => {
 }
 
 const getRoleBenefits = (role: string) => {
-  switch (role) {
+  switch (role?.toLowerCase()) {
     case 'free':
       return t('role.freeBenefits')
     case 'premium':

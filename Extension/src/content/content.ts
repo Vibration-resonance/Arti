@@ -768,7 +768,7 @@ class ArtiAIDetectorContent {
     switch (status) {
       case 'ai':
         message = safeT('notifications_aiConfirmed');
-        type = 'warning';
+        type = 'error'; // était 'warning', devient 'error' pour rouge
         break;
       case 'not_ai':
         message = safeT('notifications_humanConfirmed');

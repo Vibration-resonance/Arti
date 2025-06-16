@@ -210,7 +210,7 @@
     "free": "Gratuit",
     "premium": "Premium",
     "pro": "Pro",
-    "upgrade": "Améliorer",
+    "upgrade": "Changer de plan",
     "upgradeToPremium": "Passer à Premium",
     "upgradeToPro": "Passer à Pro",
     "currentPlan": "Plan actuel",
@@ -253,7 +253,10 @@
       "extendedApi": "API étendue",
       "advancedReports": "Rapports avancés",
       "whitelistRequests": "Demandes whitelist"
-    }
+    },
+    "freeDescription": "Vous utilisez la version gratuite. Limité à 5 signalements par jour, accès aux fonctionnalités de base.",
+    "premiumDescription": "Vous êtes abonné Premium. Signalements illimités, statistiques avancées, export CSV et plus.",
+    "proDescription": "Vous êtes abonné Pro. Accès API, outils avancés, support prioritaire et toutes les fonctionnalités Premium."
   },
   "role": {
     "free": "Gratuit",
